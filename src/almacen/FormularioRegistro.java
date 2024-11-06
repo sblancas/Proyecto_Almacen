@@ -53,14 +53,13 @@ Connection cn=con.conectar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 255));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 24), new java.awt.Color(51, 0, 255))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(0, 0, 255));
 
         btnUsuario.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnUsuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\sergi\\Downloads\\save_document_user_interface_ux_down_download_ui_icon_219961.png")); // NOI18N
         btnUsuario.setText("Guardar Usuario");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +68,6 @@ Connection cn=con.conectar();
         });
 
         btnLimpiar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnLimpiar.setIcon(new javax.swing.ImageIcon("C:\\Users\\sergi\\Downloads\\delete_delete_deleteusers_delete_male_user_maleclient_2348.png")); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

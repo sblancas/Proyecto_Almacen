@@ -36,7 +36,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="0" type="rgb"/>
+          <Color blue="ff" green="0" red="cc" type="rgb"/>
         </Property>
       </Properties>
 
@@ -119,9 +119,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="0"/>
                 </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\sergi\Downloads\save_document_user_interface_ux_down_download_ui_icon_219961.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Guardar Usuario"/>
               </Properties>
               <Events>
@@ -132,9 +129,6 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\sergi\Downloads\delete_delete_deleteusers_delete_male_user_maleclient_2348.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Limpiar"/>
               </Properties>
