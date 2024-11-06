@@ -427,13 +427,13 @@
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="18" style="0"/>
+              <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ALMACEN ADMINISTRADOR"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="130" y="10" width="-1" height="-1"/>
+              <AbsoluteConstraints x="160" y="10" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

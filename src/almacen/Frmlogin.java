@@ -8,6 +8,7 @@ package almacen;
 import conexion.ConexionMysql;
 import formularios.FormularioAdministrador;
 import formularios.FormularioEmpleado;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ Connection conexionn=conexion.conectar();
     public static FormularioRegistro form ;
     public Frmlogin() {
     this.setLocationRelativeTo(null);
-    this.setTitle("LOGING ");
+    this.setTitle("LOGIN");
     this.setSize(720,560);
     initComponents();
     setLocationRelativeTo(null);
@@ -49,7 +50,6 @@ Connection conexionn=conexion.conectar();
         jLabel3 = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -63,23 +63,36 @@ Connection conexionn=conexion.conectar();
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\sergi\\Downloads\\userpassword_deusuari_787.png")); // NOI18N
         jLabel2.setText("CONTRASEÑA:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 244, -1, -1));
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 198, 118, 32));
+
+        txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUsuarioMousePressed(evt);
+            }
+        });
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 120, 32));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\sergi\\Downloads\\mail_email_message_electronic_online_web_icon-icons.com_59986.png")); // NOI18N
         jLabel3.setText("EMAIL:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 130, -1));
 
         jPassword.setBorder(null);
-        jPanel1.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 245, 120, 32));
+        jPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPasswordMousePressed(evt);
+            }
+        });
+        jPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 120, 32));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\sergi\\Downloads\\in_door_communication_enter_log_in_login_icon_191647.png")); // NOI18N
         jButton1.setText("INICIAR SESION");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -89,20 +102,15 @@ Connection conexionn=conexion.conectar();
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 197, -1));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jLabel1.setBackground(new java.awt.Color(255, 204, 204));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 130, 130));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 170, 150));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 130));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 500, 350));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("  BIENVENIDO AL SISTEMA DE MÓVIL PLUS");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
@@ -157,6 +165,19 @@ Connection conexionn=conexion.conectar();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMousePressed
+    txtUsuario.setBackground(Color.lightGray);
+
+    }//GEN-LAST:event_txtUsuarioMousePressed
+
+    private void jPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordMousePressed
+    jPassword.setBackground(Color.lightGray);
+    }//GEN-LAST:event_jPasswordMousePressed
+
+    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +221,6 @@ Connection conexionn=conexion.conectar();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

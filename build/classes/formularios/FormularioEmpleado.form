@@ -396,7 +396,7 @@
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="18" style="0"/>
+              <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ALMACEN EMPLEADO"/>
           </Properties>

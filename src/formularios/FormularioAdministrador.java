@@ -262,9 +262,9 @@ Connection cn=con.conectar();
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 560, -1));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("ALMACEN ADMINISTRADOR");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Clave");
