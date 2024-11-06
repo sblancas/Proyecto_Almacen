@@ -55,7 +55,7 @@ Connection cn=con.conectar();
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 255, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 24), new java.awt.Color(51, 0, 255))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(0, 0, 255));
 
