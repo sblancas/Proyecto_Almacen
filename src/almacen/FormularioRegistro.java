@@ -24,7 +24,7 @@ Connection cn=con.conectar();
     public FormularioRegistro() {
         
         this.setLocationRelativeTo(null);
-        this.setTitle("FORMULARIO REGISTRO");
+        this.setTitle("FORMULARIO REGISTROs de checo la rata");
         this.setSize(720,560);
         initComponents();
         setLocationRelativeTo(null);
@@ -53,7 +53,7 @@ Connection cn=con.conectar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 24), new java.awt.Color(51, 0, 255))); // NOI18N
