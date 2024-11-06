@@ -146,7 +146,7 @@ Connection cn=con.conectar();
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel1.setText("REGISTRO USUARIOS");
+        jLabel1.setText("FORMULARIO DE CHECO LA RATONA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
