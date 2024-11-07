@@ -7,6 +7,7 @@ package formularios;
 
 import almacen.FormularioRegistro;
 import almacen.Frmlogin;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,7 +19,12 @@ public class FormularioPanelControl extends javax.swing.JFrame {
      * Creates new form FormularioPanelControl
      */
     public FormularioPanelControl() {
-        initComponents();
+                initComponents();
+        this.setLocationRelativeTo(null);
+        this.setSize(720,560);
+                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
+
+        
     }
 
     /**
@@ -102,14 +108,15 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    Frmlogin login = new Frmlogin();
+    Frmlogin login = new Frmlogin(this);
+    this.setVisible(false);
     login.setVisible(true);
     login.setLocationRelativeTo(null);
-    this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-    FormularioRegistro registro = new  FormularioRegistro();
+    FormularioRegistro registro = new  FormularioRegistro(this,true);
+    this.setVisible(false);
     registro.setVisible(true);
     registro.setLocationRelativeTo(null);
     
@@ -122,36 +129,9 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioPanelControl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioPanelControl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioPanelControl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioPanelControl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormularioPanelControl().setVisible(true);
-            }
-        });
+     public static void main(String[] args) {
+        // Ejecuta la aplicación
+        java.awt.EventQueue.invokeLater(() -> new FormularioPanelControl().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
