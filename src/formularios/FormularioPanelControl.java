@@ -5,6 +5,7 @@
  */
 package formularios;
 
+import Ventas.VentaProductos;
 import almacen.FormularioRegistro;
 import almacen.Frmlogin;
 import javax.swing.JFrame;
@@ -37,15 +38,28 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
+
+        jMenu5.setText("File");
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setText("Edit");
+        jMenuBar2.add(jMenu6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +71,7 @@ public class FormularioPanelControl extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,11 +100,25 @@ public class FormularioPanelControl extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu7.setText("Ventas");
+        jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem4.setText("Registrar venta");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu7);
+
         jMenu4.setText("Salir");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu4.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jMenu4StateChanged(evt);
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
             }
         });
         jMenuBar1.add(jMenu4);
@@ -126,9 +154,16 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenu4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jMenu4StateChanged
-        System.exit(0);
-    }//GEN-LAST:event_jMenu4StateChanged
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    VentaProductos venta = new VentaProductos(this);
+    this.setVisible(false);
+    venta.setVisible(true);
+    venta.setLocationRelativeTo(null);        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,9 +178,16 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables
 }
