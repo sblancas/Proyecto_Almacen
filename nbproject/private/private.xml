@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/almacen/FormularioRegistro.java</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/formularios/FormularioEmpleado.java</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/almacen/Frmlogin.java</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/formularios/FormularioAdministrador.java</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/conexion/ConexionMysql.java</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/imagenes/login.jpg</file>
-            <file>file:/C:/Users/SHARK/Documents/PROYECTOS/Proyecto_Almacen/src/formularios/FormularioPanelControl.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/almacen/Frmlogin.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/formularios/FormularioEmpleado.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/almacen/FormularioRegistro.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/formularios/FormularioAdministrador.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/formularios/FormularioPanelControl.java</file>
+            <file>file:/C:/Users/sergi/OneDrive/Documentos/NetBeansProjects/almacen/src/Ventas/VentaProductos.java</file>
         </group>
     </open-files>
 </project-private>

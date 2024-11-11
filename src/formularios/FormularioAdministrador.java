@@ -117,24 +117,24 @@ Connection cn=con.conectar();
 
         cboItem.setEditable(true);
         cboItem.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 50, 90, -1));
+        jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("ID Producto");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 47, -1, 28));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 28));
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 153));
 
-        btnAgregar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnAgregar.setText("Agregar");
+        btnAgregar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAgregar.setText("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -154,60 +154,61 @@ Connection cn=con.conectar();
             .addGap(0, 272, Short.MAX_VALUE)
         );
 
-        btnExportarExcel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnExportarExcel.setText("Exportar Excel");
+        btnExportarExcel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnExportarExcel.setText("EXPORTAR EXCEL");
         btnExportarExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarExcelActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Buscar");
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton1.setText("BUSCAR");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnEliminar)
-                        .addGap(53, 53, 53)
-                        .addComponent(btnExportarExcel)))
-                .addGap(0, 31, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExportarExcel)
+                        .addGap(21, 21, 21))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEliminar)
-                        .addComponent(btnExportarExcel)
-                        .addComponent(btnAgregar)))
+                        .addComponent(btnExportarExcel)))
                 .addGap(95, 95, 95)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 550, 49));
 
-        btnBuscar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnBuscar.setText("Buscar");
+        btnBuscar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -260,7 +261,7 @@ Connection cn=con.conectar();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 560, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 570, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("ALMACEN ADMINISTRADOR");
@@ -271,14 +272,14 @@ Connection cn=con.conectar();
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 90, -1));
         jPanel1.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 170, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnActualizar.setText("Actualizar");
+        btnActualizar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 90, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,15 +307,15 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
      double precio =formatearPrecio(txtPreciop.getText());
      int cantidad = Integer.parseInt(txtCantidadp.getText());
      String descripcion=txtDescripcion.getText();
-      String query="SELECT * FROM producto where id=?";
-        PreparedStatement psx = cn.prepareStatement(query);
-        psx.setInt(1, clave);
-        ResultSet rs = psx.executeQuery();
+     String query="SELECT * FROM producto where id=?";
+     PreparedStatement psx = cn.prepareStatement(query);
+     psx.setInt(1, clave);
+     ResultSet rs = psx.executeQuery();
         
-        if (rs.next()==true){
-         JOptionPane.showMessageDialog(null, "YA EXISTE UN PRODUCTO REGISTRADO CON ESA CLAVE","",JOptionPane.ERROR_MESSAGE);
-        }else{
-        Object[]options = {"ACEPTAR","CANCELAR"};
+     if (rs.next()==true){
+     JOptionPane.showMessageDialog(null, "YA EXISTE UN PRODUCTO REGISTRADO CON ESA CLAVE","",JOptionPane.ERROR_MESSAGE);
+     }else{
+     Object[]options = {"ACEPTAR","CANCELAR"};
      int respuesta = JOptionPane.showOptionDialog(null,"¿ DESEAS CONTINUAR ? ","CONFIRMACIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0] );
      if (respuesta == JOptionPane.YES_OPTION ){
      String consulta="INSERT INTO producto( id,nombre,precio,cantidad,descripcion)values('"+clave+"','"+nombre+"','"+precio+"','"+cantidad+"','"+descripcion+"')";
@@ -324,25 +325,13 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
      cargarProductos();
      llenarTabla();
      }else if (respuesta == JOptionPane.CLOSED_OPTION || respuesta == JOptionPane.NO_OPTION) {
-    JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        
+    JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);  
         }
-        
-     
-    
 }
-    
-                        
-
          
      } catch  (Exception e) {
-     
-     //JOptionPane.showMessageDialog(null, "CLAVE O PRODUCTO YA EXISTENTE");
  }
   }
-  
-
-
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

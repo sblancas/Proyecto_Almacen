@@ -91,7 +91,7 @@ Connection cn=con.conectar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(193, 145, 193));
+        jPanel1.setBackground(new java.awt.Color(193, 167, 217));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -123,8 +123,8 @@ Connection cn=con.conectar();
 
         jPanel2.setBackground(new java.awt.Color(218, 170, 234));
 
-        btnActualizar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnActualizar.setText("Actualizar");
+        btnActualizar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -154,7 +154,7 @@ Connection cn=con.conectar();
                         .addGap(2, 2, 2)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(49, 49, 49)
                         .addComponent(btnActualizar)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -167,10 +167,10 @@ Connection cn=con.conectar();
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 300, 49));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 240, 49));
 
-        btnBuscar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnBuscar.setText("Buscar");
+        btnBuscar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
