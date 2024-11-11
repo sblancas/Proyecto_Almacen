@@ -6,8 +6,6 @@
 package formularios;
 
 import conexion.ConexionMysql;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
-import java.io.FileFilter;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 /**
  *
@@ -409,59 +410,110 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    // Verificar si cboItem tiene un elemento seleccionado
+    if (cboItem.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
+    // Verificar si la conexión a la base de datos está inicializada
+    if (cn == null) {
+        JOptionPane.showMessageDialog(null, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    PreparedStatement ps = null;
     try {
-        String lista=cboItem.getSelectedItem().toString();
-        String consulta="DELETE  FROM producto where id=?";
-        PreparedStatement ps = cn.prepareStatement(consulta);
-        ps.setString(1,lista);
+        // Obtener el valor seleccionado del comboBox
+        String lista = cboItem.getSelectedItem().toString();
+        
+        // Definir la consulta de eliminación
+        String consulta = "DELETE FROM producto WHERE id=?";
+        ps = cn.prepareStatement(consulta);
+        ps.setString(1, lista);
+        
+        // Ejecutar la eliminación
         int valor = ps.executeUpdate();
-        if(valor==1){
-        JOptionPane.showMessageDialog(null,"REGISTRO ELIMINADO CON EXITO","",JOptionPane.INFORMATION_MESSAGE);
-        txtClave.setText("");
-        txtNombrep.setText("");
-        txtPreciop.setText("");
-        txtCantidadp.setText("");
-        txtDescripcion.setText("");
-        txtNombrep.requestFocus();
-        cargarProductos();
-        llenarTabla();
+        
+        if (valor == 1) {
+            JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
+            txtClave.setText("");
+            txtNombrep.setText("");
+            txtPreciop.setText("");
+            txtCantidadp.setText("");
+            txtDescripcion.setText("");
+            txtNombrep.requestFocus();
+            cargarProductos();
+            llenarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
         }
     } catch (SQLException ex) {
-        Logger.getLogger(FormularioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Error al intentar eliminar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (ps != null) ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-     
-     
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
-String fileName = "C:\\Users\\sergi\\OneDrive\\Documentos\\checo.xlsx";
-    try {
-FileWriter fileWriter = new FileWriter(fileName);
-String query="SELECT * FROM producto";
-PreparedStatement ps = cn.prepareStatement(query);
-ResultSet rs = ps.executeQuery();
-while (rs.next()){
- fileWriter.append(rs.getString(1));
- fileWriter.append(',');
- fileWriter.append(rs.getString(2));
- fileWriter.append(',');
- fileWriter.append(rs.getString(3));
- fileWriter.append(',');
- fileWriter.append(rs.getString(4));
- fileWriter.append(',');
- fileWriter.append(rs.getString(5));
- fileWriter.append('\n');
-}
-JOptionPane.showMessageDialog(null,"ARCHIVO EXCEL EXPORTADO CON EXITO","",JOptionPane.INFORMATION_MESSAGE);
-fileWriter.flush();
-fileWriter.close();
+  // Ruta donde se guardará el archivo Excel
+    String fileName = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "productos.xls";
 
-    } catch (IOException ex) {
-        Logger.getLogger(FormularioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(FormularioAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+    try {
+        // Crear el archivo de Excel
+        WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
+        WritableSheet sheet = workbook.createSheet("Productos", 0);
+
+        // Realiza la consulta a la base de datos
+        String query = "SELECT * FROM producto";
+        try (PreparedStatement ps = cn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            // Verificar si hay datos en el ResultSet
+            if (!rs.isBeforeFirst()) {
+                JOptionPane.showMessageDialog(null, "No se encuentran productos a exportar", "Información", JOptionPane.INFORMATION_MESSAGE);
+                workbook.close();
+                return;
+            }
+
+            // Crear encabezados en la primera fila
+            sheet.addCell(new Label(0, 0, "ID"));
+            sheet.addCell(new Label(1, 0, "Nombre"));
+            sheet.addCell(new Label(2, 0, "Precio"));
+            sheet.addCell(new Label(3, 0, "Cantidad"));
+            sheet.addCell(new Label(4, 0, "Descripción"));
+
+            // Llenar el archivo con los datos de la base de datos
+            int rowNum = 1;
+            while (rs.next()) {
+                sheet.addCell(new Label(0, rowNum, rs.getString("id")));
+                sheet.addCell(new Label(1, rowNum, rs.getString("nombre")));
+                sheet.addCell(new Label(2, rowNum, rs.getString("precio")));
+                sheet.addCell(new Label(3, rowNum, rs.getString("cantidad")));
+                sheet.addCell(new Label(4, rowNum, rs.getString("descripcion")));
+                rowNum++;
+            }
+
+            // Guardar y cerrar el archivo Excel
+            workbook.write();
+            workbook.close();
+            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL EXPORTADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al exportar el archivo Excel.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
 
     }//GEN-LAST:event_btnExportarExcelActionPerformed
 
