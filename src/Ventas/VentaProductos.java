@@ -24,13 +24,13 @@ public class VentaProductos extends javax.swing.JFrame {
      * Creates new form VentaProductos
      */
     public VentaProductos(JFrame parent) {
+        timer.start();
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("FORMULARIO REGISTRO");
         this.setResizable(false);
                     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Esto hace que solo se cierre la ventana de login
 
-                    timer.start();
      addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -47,8 +47,6 @@ public class VentaProductos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
@@ -82,17 +80,6 @@ public class VentaProductos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Facturación");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 22, -1, -1));
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Fecha y hora:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 28, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,8 +120,10 @@ public class VentaProductos extends javax.swing.JFrame {
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 136, -1, -1));
 
         hora.setBackground(new java.awt.Color(255, 255, 255));
+        hora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hora.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         hora.setOpaque(true);
-        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 130, 20));
+        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 130, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -232,7 +221,7 @@ public class VentaProductos extends javax.swing.JFrame {
     
     
     
-    Timer timer = new Timer(1000, new ActionListener() {
+    Timer timer = new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
  // Obtener la hora actual
@@ -253,10 +242,8 @@ public class VentaProductos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
