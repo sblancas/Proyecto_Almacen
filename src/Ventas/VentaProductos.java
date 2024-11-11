@@ -80,8 +80,6 @@ public class VentaProductos extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -136,7 +134,7 @@ public class VentaProductos extends javax.swing.JFrame {
 
         hora.setBackground(new java.awt.Color(255, 255, 255));
         hora.setOpaque(true);
-        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 90, 20));
+        jPanel1.add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 130, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -238,9 +236,9 @@ public class VentaProductos extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
  // Obtener la hora actual
-                String horaActual = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                String fechaHoraActual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 // Actualizar el texto del JLabel
-                hora.setText(horaActual);        }
+                hora.setText(fechaHoraActual);        }
             
         });
 
