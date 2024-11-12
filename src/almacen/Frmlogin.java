@@ -6,6 +6,7 @@
 package almacen;
 
 import conexion.ConexionMysql;
+import config.FondoPanel;
 import formularios.FormularioAdministrador;
 import formularios.FormularioEmpleado;
 import java.awt.Color;
@@ -45,6 +46,7 @@ Connection conexionn=conexion.conectar();
                 jLabel1.getHeight(), 
                 Image.SCALE_SMOOTH);
                 jLabel1.setIcon(new ImageIcon(scaledImage));
+        FondoPanel.setIcon(this, "/imagenes/login.png");
 
     // Al cerrar la ventana de login, mostrar la ventana principal nuevamente
     this.addWindowListener(new WindowAdapter() {

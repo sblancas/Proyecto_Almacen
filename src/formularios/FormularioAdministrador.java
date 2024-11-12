@@ -6,21 +6,16 @@
 package formularios;
 
 import conexion.ConexionMysql;
+import config.FondoPanel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -40,10 +35,12 @@ Connection cn=con.conectar();
      * Creates new form FormularioAdministrador
      */
     public FormularioAdministrador() {
-    this.setLocationRelativeTo(null);
-    this.setTitle("ALMACEN ADMIND ");
-    this.setSize(720,560);
+    
     initComponents();
+    this.setLocationRelativeTo(null);
+    this.setTitle("ALMACEN");
+    this.setSize(720,560);
+    FondoPanel.setIcon(this, "/imagenes/login.png");
     setLocationRelativeTo(null);
     cargarProductos();
     llenarTabla();
