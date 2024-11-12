@@ -6,7 +6,6 @@
 package formularios;
 
 import conexion.ConexionMysql;
-import config.FondoPanel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +19,7 @@ import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -35,12 +35,10 @@ Connection cn=con.conectar();
      * Creates new form FormularioAdministrador
      */
     public FormularioAdministrador() {
-    
-    initComponents();
     this.setLocationRelativeTo(null);
-    this.setTitle("ALMACEN");
+    this.setTitle("ALMACEN ADMIND ");
     this.setSize(720,560);
-    FondoPanel.setIcon(this, "/imagenes/login.png");
+    initComponents();
     setLocationRelativeTo(null);
     cargarProductos();
     llenarTabla();
@@ -332,6 +330,7 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
      int respuesta = JOptionPane.showOptionDialog(null,"¿ DESEAS CONTINUAR ? ","CONFIRMACIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0] );
      if (respuesta == JOptionPane.YES_OPTION ){
      String consulta="INSERT INTO producto( id,nombre,precio,cantidad,descripcion)values('"+clave+"','"+nombre+"','"+precio+"','"+cantidad+"','"+descripcion+"')";
+         System.out.println(consulta);
      PreparedStatement ps = cn.prepareStatement(consulta);
      ps.executeUpdate();
      JOptionPane.showMessageDialog(null, "DATOS DEL PRODUCTO INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
@@ -567,20 +566,39 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
             }
         });
     }
-public void cargarProductos(){
-try{
-String consulta="SELECT id FROM producto";
-PreparedStatement ps = cn.prepareStatement(consulta); 
-ResultSet rs = ps.executeQuery();
-cboItem.removeAllItems();
-while(rs.next()){
-cboItem.addItem(rs.getString(1));
-    
-}
+public void cargarProductos() {
+    // Asegúrate de que la conexión esté establecida
+    if (cn == null) {
+        System.out.println("La conexión a la base de datos no está establecida.");
+        return;
+    }
+
+    try {
+        // Consulta para obtener los productos
+        String consulta = "SELECT nombre FROM producto";
+        PreparedStatement ps = cn.prepareStatement(consulta); 
+        ResultSet rs = ps.executeQuery();
         
-}catch(Exception e ){
-    
-}
+        // Limpiar el ComboBox antes de llenarlo
+        cboItem.removeAllItems();
+        
+        // Llenar el ComboBox con los resultados
+        while (rs.next()) {
+            String producto = rs.getString("nombre");
+            cboItem.addItem(producto);  // Añadir el nombre del producto
+        }
+
+        // Aplicar el autocompletado al JComboBox
+        AutoCompleteDecorator.decorate(cboItem);  // Esto habilita el autocompletado
+
+        // Cerrar recursos
+        rs.close();
+        ps.close();
+        
+    } catch (Exception e) {
+        // Manejo de errores, imprimiendo la excepción
+        e.printStackTrace();  // Esto te ayudará a ver si algo está fallando
+    }
 }
 public double formatearPrecio(String txtPreciop){
 
