@@ -17,6 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -43,6 +47,7 @@ Connection cn=con.conectar();
     setLocationRelativeTo(null);
     cargarProductos();
     llenarTabla();
+    
     }
 
     /**
@@ -118,6 +123,11 @@ Connection cn=con.conectar();
 
         cboItem.setEditable(true);
         cboItem.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        cboItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboItemActionPerformed(evt);
+            }
+        });
         jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -165,6 +175,11 @@ Connection cn=con.conectar();
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,7 +215,7 @@ Connection cn=con.conectar();
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 550, 49));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 640, 49));
 
         btnBuscar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -251,8 +266,8 @@ Connection cn=con.conectar();
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +277,7 @@ Connection cn=con.conectar();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 570, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 650, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("ALMACEN ADMINISTRADOR");
@@ -286,7 +301,7 @@ Connection cn=con.conectar();
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,33 +351,29 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    
-         
-        Object selectItem = cboItem.getSelectedItem();
-        String valorIngresado = selectItem != null ? selectItem.toString():"";
-        try {
-        Integer numero = Integer.valueOf(valorIngresado);
-         String item = cboItem.getSelectedItem().toString().trim();
-        String query="SELECT * FROM producto where id=?";
+   
+    try {
+        
+        String item = cboItem.getSelectedItem().toString().trim();
+        String query = "SELECT * FROM producto WHERE id=?";
         PreparedStatement ps = cn.prepareStatement(query);
         ps.setString(1, item);
         ResultSet rs = ps.executeQuery();
-        
-        if (rs.next()==true){
-        txtClave.setText(rs.getString(1));
-        txtNombrep.setText(rs.getString(2));
-        txtPreciop.setText(" $ "+rs.getString(3)+" MXN ");
-        txtCantidadp.setText(rs.getString(4));
-        txtDescripcion.setText(rs.getString(5));
-       
-        
-        }else{
-        JOptionPane.showMessageDialog(null, "NO SE ENCONTRARON REGISTROS PARA MOSTRAR","",JOptionPane.ERROR_MESSAGE);
-        }   
-        } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "NO SE PERMITEN LETRAS","",JOptionPane.ERROR_MESSAGE);
-        cboItem.removeAllItems();
+
+        if (rs.next()) {
+            txtClave.setText(rs.getString(1));
+            txtNombrep.setText(rs.getString(2));
+            txtPreciop.setText(" $ " + rs.getString(3) + " MXN ");
+            txtCantidadp.setText(rs.getString(4));
+            txtDescripcion.setText(rs.getString(5));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros para mostrar", "", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Ocurrió un error", "", JOptionPane.ERROR_MESSAGE);
+        cboItem.removeAllItems();
+    
+}
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -516,6 +527,14 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
 
 
     }//GEN-LAST:event_btnExportarExcelActionPerformed
+
+    private void cboItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboItemActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
