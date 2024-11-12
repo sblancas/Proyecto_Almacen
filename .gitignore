@@ -1,0 +1,35 @@
+# Archivos de compilación generados por el compilador de Java
+*.class
+
+# Directorios de compilación
+/bin/
+/target/
+
+# Archivos de configuración de IDEs (como IntelliJ, Eclipse, NetBeans)
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Archivos de configuración del sistema operativo
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Archivos de log
+*.log
+
+# Archivos temporales generados por editores de texto
+*~
+*.bak
+
+# Archivos de dependencias en Maven o Gradle
+/.mvn/
+/.gradle/
+
+
+# Archivos de configuración de proyectos en Maven y Gradle
+/.idea/
+/target/
+/out/
+/build/
