@@ -15,6 +15,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
+import java.nio.file.Paths;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -469,8 +470,8 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
 
     private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
   // Ruta donde se guardará el archivo Excel
-    String fileName = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "productos.xls";
 
+String fileName = Paths.get(System.getProperty("user.home"), "Desktop", "productos.xls").toString();
     try {
         // Crear el archivo de Excel
         WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));

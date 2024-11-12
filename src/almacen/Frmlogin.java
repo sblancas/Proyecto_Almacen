@@ -11,6 +11,7 @@ import formularios.FormularioAdministrador;
 import formularios.FormularioEmpleado;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -55,6 +56,22 @@ Connection conexionn=conexion.conectar();
             parent.setVisible(true);  // Muestra la ventana principal
         }
     });
+    
+     txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+    public void keyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Si se presiona Enter
+            jButton1.doClick();  // Simula el clic del botón
+        }
+    }
+});
+
+jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+    public void keyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Si se presiona Enter
+            jButton1.doClick();  // Simula el clic del botón
+        }
+    }
+});
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -149,7 +166,7 @@ Connection conexionn=conexion.conectar();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String usuario=txtUsuario.getText();
+       String usuario=txtUsuario.getText();
         String contrasena=jPassword.getText();
         if(!usuario.equals("")&& !contrasena.equals("")){
             try {
