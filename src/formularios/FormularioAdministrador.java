@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.nio.file.Paths;
+import javax.swing.ImageIcon;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -37,7 +38,8 @@ Connection cn=con.conectar();
      */
     public FormularioAdministrador() {
     this.setLocationRelativeTo(null);
-    this.setTitle("ALMACEN ADMIND ");
+    this.setTitle("ALMACEN ADMIND ");setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
+    
     this.setSize(720,560);
     initComponents();
     setLocationRelativeTo(null);
@@ -124,7 +126,7 @@ Connection cn=con.conectar();
                 cboItemActionPerformed(evt);
             }
         });
-        jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 90, -1));
+        jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 130, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("ID Producto");
@@ -352,7 +354,7 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
     try {
         
         String item = cboItem.getSelectedItem().toString().trim();
-        String query = "SELECT * FROM producto WHERE id=?";
+        String query = "SELECT * FROM producto WHERE nombre=?";
         PreparedStatement ps = cn.prepareStatement(query);
         ps.setString(1, item);
         ResultSet rs = ps.executeQuery();
@@ -389,7 +391,7 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
         String descripcion  = txtDescripcion.getText();
         String lista=cboItem.getSelectedItem().toString();
         
-        String consulta="UPDATE producto SET id=?, nombre=? ,precio=? ,cantidad=? ,descripcion=? where id=?";
+        String consulta="UPDATE producto SET id=?, nombre=? ,precio=? ,cantidad=? ,descripcion=? where nombre=?";
         PreparedStatement ps = cn.prepareStatement(consulta);
         ps.setInt(1, clave);
         ps.setString(2, nombre);

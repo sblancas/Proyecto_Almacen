@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,7 @@ Connection cn=con.conectar();
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("FORMULARIO REGISTRO");
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
         this.setResizable(false);
         setLocationRelativeTo(null);
 

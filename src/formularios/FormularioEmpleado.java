@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.io.FileFilter;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -35,6 +36,7 @@ Connection cn=con.conectar();
     public FormularioEmpleado() {
     this.setLocationRelativeTo(null);
     this.setTitle("ALMACEN ADMIND ");
+    setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
     this.setSize(720,560);
     initComponents();
     setLocationRelativeTo(null);
