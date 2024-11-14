@@ -5,36 +5,34 @@
  */
 package formularios;
 
-import Ventas.VentaProductos;
 import almacen.FormularioRegistro;
 import almacen.Frmlogin;
-import config.FondoPanel;
-import java.awt.Graphics;
-import java.awt.Image;
+import config.Utilidades;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
  * @author sergi
  */
-public class FormularioPanelControl extends javax.swing.JFrame {
+public class FormularioInicio extends javax.swing.JFrame {
 
     /**
      * Creates new form FormularioPanelControl
      */
-    FondoPanel fondo = new FondoPanel();
-    public FormularioPanelControl() {
-                        this.setContentPane(fondo);
+// Crear panel de fondo con imagen específica para el Formulario 1
+    Utilidades fondo = new Utilidades("../imagenes/panel.jpg");
 
-                initComponents();
+    public FormularioInicio() {
+        this.setContentPane(fondo);
+
+        initComponents();
         this.setLocationRelativeTo(null);
-        this.setSize(720,560);
-                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
+        this.setSize(720, 560);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
 
-    } 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,8 +54,6 @@ public class FormularioPanelControl extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -95,20 +91,6 @@ public class FormularioPanelControl extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu7.setText("Ventas");
-        jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem4.setText("Registrar venta");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu7);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,19 +122,12 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    VentaProductos venta = new VentaProductos(this);
-    this.setVisible(false);
-    venta.setVisible(true);
-    venta.setLocationRelativeTo(null);        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     /**
      * @param args the command line arguments
      */
      public static void main(String[] args) {
         // Ejecuta la aplicación
-        java.awt.EventQueue.invokeLater(() -> new FormularioPanelControl().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormularioInicio().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -161,12 +136,10 @@ public class FormularioPanelControl extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables

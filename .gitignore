@@ -33,3 +33,4 @@ Thumbs.db  # Windows
 /target/
 /out/
 /build/
+/dist/

@@ -15,25 +15,30 @@ import javax.swing.JPanel;
  *
  * @author SHARK
  */
-public class FondoPanel extends JPanel {
-    private Image imagen;
+ public class Utilidades extends JPanel {
+   private Image imagen;
 
-  
+    // Constructor que recibe la ruta de la imagen
+    public Utilidades(String imagePath) {
+        // Carga la imagen de fondo
+        this.imagen = new ImageIcon(getClass().getResource(imagePath)).getImage();
+    }
 
     @Override
-    public void paint(Graphics g) {
-                 imagen = new ImageIcon(getClass().getResource("../imagenes/panel.jpg")).getImage(); // Ruta de la imagen
-
-        g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this); // Dibuja la imagen escalada
-        setOpaque(false);
-        super.paint(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Dibuja la imagen de fondo escalada al tamaño del panel
+        g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
     }
+
 
      // Método para establecer el icono en un JFrame
     public static void setIcon(JFrame frame, String iconPath) {
         // Asegúrate de que el icono exista en la ruta especificada
-        ImageIcon icon = new ImageIcon(FondoPanel.class.getResource(iconPath));
+        ImageIcon icon = new ImageIcon(Utilidades.class.getResource(iconPath));
         frame.setIconImage(icon.getImage());
     }
+    
+    
     
 }

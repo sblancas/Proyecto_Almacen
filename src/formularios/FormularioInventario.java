@@ -6,6 +6,8 @@
 package formularios;
 
 import conexion.ConexionMysql;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.nio.file.Paths;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -27,7 +31,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author sergi
  */
-public class FormularioAdministrador extends javax.swing.JFrame {
+public class FormularioInventario extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
@@ -36,15 +40,27 @@ Connection cn=con.conectar();
     /**
      * Creates new form FormularioAdministrador
      */
-    public FormularioAdministrador() {
+    public FormularioInventario(JFrame parent) {
     this.setLocationRelativeTo(null);
-    this.setTitle("ALMACEN ADMIND ");setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
+    this.setTitle("INVENTARIO ");setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
     
     this.setSize(720,560);
     initComponents();
     setLocationRelativeTo(null);
     cargarProductos();
     llenarTabla();
+    
+    // Agrega el listener
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Esto hace que solo se cierre la ventana de login
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Al cerrar, muestra el formulario principal
+                parent.setVisible(true);
+            }
+        });
+    
     
     }
 
@@ -74,7 +90,6 @@ Connection cn=con.conectar();
         jPanel4 = new javax.swing.JPanel();
         btnExportarExcel = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
@@ -84,7 +99,8 @@ Connection cn=con.conectar();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtClave = new javax.swing.JTextField();
-        btnActualizar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,16 +120,16 @@ Connection cn=con.conectar();
         jPanel1.setBackground(new java.awt.Color(130, 207, 251));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel1.setText("Nombre  producto");
+        jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel1.setText("Nombre  producto:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setText("Precio  producto");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("Precio  producto:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setText("Cantidad  producto");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel3.setText("Cantidad  producto:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
         jPanel1.add(txtNombrep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 173, -1));
         jPanel1.add(txtPreciop, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 173, -1));
@@ -128,13 +144,13 @@ Connection cn=con.conectar();
         });
         jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 130, -1));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("ID Producto");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel4.setText("Producto:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 28));
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 153));
 
-        btnAgregar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAgregar.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         btnAgregar.setText("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +158,7 @@ Connection cn=con.conectar();
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +179,7 @@ Connection cn=con.conectar();
             .addGap(0, 272, Short.MAX_VALUE)
         );
 
-        btnExportarExcel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnExportarExcel.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         btnExportarExcel.setText("EXPORTAR EXCEL");
         btnExportarExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +187,7 @@ Connection cn=con.conectar();
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jButton1.setText("BUSCAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,15 +231,6 @@ Connection cn=con.conectar();
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 640, 49));
 
-        btnBuscar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnBuscar.setText("BUSCAR");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -237,8 +244,8 @@ Connection cn=con.conectar();
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 412, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("Descripcion");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel5.setText("Descripcion:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 173, -1));
 
@@ -277,23 +284,32 @@ Connection cn=con.conectar();
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 650, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel6.setText("ALMACEN ADMINISTRADOR");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
+        jLabel6.setText("INVENTARIO");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setText("Clave");
+        jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jLabel7.setText("Clave:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 90, -1));
         jPanel1.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 170, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnActualizar.setText("ACTUALIZAR");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 130, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 130, -1));
+
+        jButton2.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        jButton2.setText("ACTUALIZAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 130, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,50 +325,9 @@ Connection cn=con.conectar();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
-      
-      
-      JOptionPane.showMessageDialog(null,"DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.WARNING_MESSAGE);
-}else{
-     try{   
-     int    clave  = Integer.parseInt(txtClave.getText());
-     String nombre = txtNombrep.getText();
-     double precio =formatearPrecio(txtPreciop.getText());
-     int cantidad = Integer.parseInt(txtCantidadp.getText());
-     String descripcion=txtDescripcion.getText();
-     String query="SELECT * FROM producto where id=?";
-     PreparedStatement psx = cn.prepareStatement(query);
-     psx.setInt(1, clave);
-     ResultSet rs = psx.executeQuery();
-        
-     if (rs.next()==true){
-     JOptionPane.showMessageDialog(null, "YA EXISTE UN PRODUCTO REGISTRADO CON ESA CLAVE","",JOptionPane.ERROR_MESSAGE);
-     }else{
-     Object[]options = {"ACEPTAR","CANCELAR"};
-     int respuesta = JOptionPane.showOptionDialog(null,"¿ DESEAS CONTINUAR ? ","CONFIRMACIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0] );
-     if (respuesta == JOptionPane.YES_OPTION ){
-     String consulta="INSERT INTO producto( id,nombre,precio,cantidad,descripcion)values('"+clave+"','"+nombre+"','"+precio+"','"+cantidad+"','"+descripcion+"')";
-         System.out.println(consulta);
-     PreparedStatement ps = cn.prepareStatement(consulta);
-     ps.executeUpdate();
-     JOptionPane.showMessageDialog(null, "DATOS DEL PRODUCTO INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
-     cargarProductos();
-     llenarTabla();
-     }else if (respuesta == JOptionPane.CLOSED_OPTION || respuesta == JOptionPane.NO_OPTION) {
-    JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);  
-        }
-}
-         
-     } catch  (Exception e) {
- }
-  }
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
    
     try {
-        
         String item = cboItem.getSelectedItem().toString().trim();
         String query = "SELECT * FROM producto WHERE nombre=?";
         PreparedStatement ps = cn.prepareStatement(query);
@@ -366,7 +341,7 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
             txtCantidadp.setText(rs.getString(4));
             txtDescripcion.setText(rs.getString(5));
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontraron registros para mostrar", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontraron registros para mostrar", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Ocurrió un error", "", JOptionPane.ERROR_MESSAGE);
@@ -375,7 +350,7 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
 }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
     try {
     if (txtClave.getText().isEmpty()|| txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
       
@@ -419,156 +394,205 @@ if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.g
     
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    // Verificar si cboItem tiene un elemento seleccionado
-    if (cboItem.getSelectedItem() == null) {
-        JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Verificar si la conexión a la base de datos está inicializada
-    if (cn == null) {
-        JOptionPane.showMessageDialog(null, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    PreparedStatement ps = null;
-    try {
-        // Obtener el valor seleccionado del comboBox
-        String lista = cboItem.getSelectedItem().toString();
-        
-        // Definir la consulta de eliminación
-        String consulta = "DELETE FROM producto WHERE id=?";
-        ps = cn.prepareStatement(consulta);
-        ps.setString(1, lista);
-        
-        // Ejecutar la eliminación
-        int valor = ps.executeUpdate();
-        
-        if (valor == 1) {
-            JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
-            txtClave.setText("");
-            txtNombrep.setText("");
-            txtPreciop.setText("");
-            txtCantidadp.setText("");
-            txtDescripcion.setText("");
-            txtNombrep.requestFocus();
-            cargarProductos();
-            llenarTabla();
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al intentar eliminar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        try {
-            if (ps != null) ps.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
-  // Ruta donde se guardará el archivo Excel
-
-String fileName = Paths.get(System.getProperty("user.home"), "Desktop", "productos.xls").toString();
-    try {
-        // Crear el archivo de Excel
-        WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
-        WritableSheet sheet = workbook.createSheet("Productos", 0);
-
-        // Realiza la consulta a la base de datos
-        String query = "SELECT * FROM producto";
-        try (PreparedStatement ps = cn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
-            // Verificar si hay datos en el ResultSet
-            if (!rs.isBeforeFirst()) {
-                JOptionPane.showMessageDialog(null, "No se encuentran productos a exportar", "Información", JOptionPane.INFORMATION_MESSAGE);
-                workbook.close();
-                return;
-            }
-
-            // Crear encabezados en la primera fila
-            sheet.addCell(new Label(0, 0, "ID"));
-            sheet.addCell(new Label(1, 0, "Nombre"));
-            sheet.addCell(new Label(2, 0, "Precio"));
-            sheet.addCell(new Label(3, 0, "Cantidad"));
-            sheet.addCell(new Label(4, 0, "Descripción"));
-
-            // Llenar el archivo con los datos de la base de datos
-            int rowNum = 1;
-            while (rs.next()) {
-                sheet.addCell(new Label(0, rowNum, rs.getString("id")));
-                sheet.addCell(new Label(1, rowNum, rs.getString("nombre")));
-                sheet.addCell(new Label(2, rowNum, rs.getString("precio")));
-                sheet.addCell(new Label(3, rowNum, rs.getString("cantidad")));
-                sheet.addCell(new Label(4, rowNum, rs.getString("descripcion")));
-                rowNum++;
-            }
-
-            // Guardar y cerrar el archivo Excel
-            workbook.write();
-            workbook.close();
-            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL EXPORTADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al exportar el archivo Excel.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    }//GEN-LAST:event_btnExportarExcelActionPerformed
-
     private void cboItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboItemActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    try {
+    if (txtClave.getText().isEmpty()|| txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
+      
+      
+      JOptionPane.showMessageDialog(null, "NO SE PERMITE ACTUALIZAR CAMPOS VACIOS","",JOptionPane.ERROR_MESSAGE); 
+}else{ 
+        
+    
+        int    clave  = Integer.parseInt(txtClave.getText());
+        String nombre = txtNombrep.getText();
+        double precio = formatearPrecio(txtPreciop.getText());
+        int cantidad = Integer.parseInt(txtCantidadp.getText());
+        String descripcion  = txtDescripcion.getText();
+        String lista=cboItem.getSelectedItem().toString();
+        
+        String consulta="UPDATE producto SET id=?, nombre=? ,precio=? ,cantidad=? ,descripcion=? where nombre=?";
+        PreparedStatement ps = cn.prepareStatement(consulta);
+        ps.setInt(1, clave);
+        ps.setString(2, nombre);
+        ps.setDouble(3, precio);
+        ps.setInt(4, cantidad);
+        ps.setString(5, descripcion );
+        ps.setString(6, lista);
+        int valor = ps.executeUpdate();
+        if(valor==1){
+        JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO EXITOSAMENTE","",JOptionPane.INFORMATION_MESSAGE); 
+        txtClave.setText("");
+        txtNombrep.setText("");
+        txtPreciop.setText("");
+        txtCantidadp.setText("");
+        txtDescripcion.setText("");
+        txtNombrep.requestFocus();
+        cargarProductos();
+        llenarTabla();
+        }
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex,"",JOptionPane.ERROR_MESSAGE); 
+            
+    }
+    
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
+        // Ruta donde se guardará el archivo Excel
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormularioAdministrador().setVisible(true);
+        String fileName = Paths.get(System.getProperty("user.home"), "Desktop", "productos.xls").toString();
+        try {
+            // Crear el archivo de Excel
+            WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
+            WritableSheet sheet = workbook.createSheet("Productos", 0);
+
+            // Realiza la consulta a la base de datos
+            String query = "SELECT * FROM producto";
+            try (PreparedStatement ps = cn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()) {
+
+                // Verificar si hay datos en el ResultSet
+                if (!rs.isBeforeFirst()) {
+                    JOptionPane.showMessageDialog(null, "No se encuentran productos a exportar", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    workbook.close();
+                    return;
+                }
+
+                // Crear encabezados en la primera fila
+                sheet.addCell(new Label(0, 0, "ID"));
+                sheet.addCell(new Label(1, 0, "Nombre"));
+                sheet.addCell(new Label(2, 0, "Precio"));
+                sheet.addCell(new Label(3, 0, "Cantidad"));
+                sheet.addCell(new Label(4, 0, "Descripción"));
+
+                // Llenar el archivo con los datos de la base de datos
+                int rowNum = 1;
+                while (rs.next()) {
+                    sheet.addCell(new Label(0, rowNum, rs.getString("id")));
+                    sheet.addCell(new Label(1, rowNum, rs.getString("nombre")));
+                    sheet.addCell(new Label(2, rowNum, rs.getString("precio")));
+                    sheet.addCell(new Label(3, rowNum, rs.getString("cantidad")));
+                    sheet.addCell(new Label(4, rowNum, rs.getString("descripcion")));
+                    rowNum++;
+                }
+
+                // Guardar y cerrar el archivo Excel
+                workbook.write();
+                workbook.close();
+                JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL EXPORTADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });
-    }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al exportar el archivo Excel.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnExportarExcelActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // Verificar si cboItem tiene un elemento seleccionado
+        if (cboItem.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Verificar si la conexión a la base de datos está inicializada
+        if (cn == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        PreparedStatement ps = null;
+        try {
+            // Obtener el valor seleccionado del comboBox
+            String lista = cboItem.getSelectedItem().toString();
+
+            // Definir la consulta de eliminación
+            String consulta = "DELETE FROM producto WHERE nombre=?";
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, lista);
+
+            // Ejecutar la eliminación
+            int valor = ps.executeUpdate();
+
+            if (valor == 1) {
+                JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CON ÉXITO", "", JOptionPane.INFORMATION_MESSAGE);
+                txtClave.setText("");
+                txtNombrep.setText("");
+                txtPreciop.setText("");
+                txtCantidadp.setText("");
+                txtDescripcion.setText("");
+                txtNombrep.requestFocus();
+                cargarProductos();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null,"DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.WARNING_MESSAGE);
+        }else{
+            try{
+                int    clave  = Integer.parseInt(txtClave.getText());
+                String nombre = txtNombrep.getText();
+                double precio =formatearPrecio(txtPreciop.getText());
+                int cantidad = Integer.parseInt(txtCantidadp.getText());
+                String descripcion=txtDescripcion.getText();
+                String query="SELECT * FROM producto where id=?";
+                PreparedStatement psx = cn.prepareStatement(query);
+                psx.setInt(1, clave);
+                ResultSet rs = psx.executeQuery();
+
+                if (rs.next()==true){
+                    JOptionPane.showMessageDialog(null, "YA EXISTE UN PRODUCTO REGISTRADO CON ESA CLAVE","",JOptionPane.ERROR_MESSAGE);
+                }else{
+                    Object[]options = {"ACEPTAR","CANCELAR"};
+                    int respuesta = JOptionPane.showOptionDialog(null,"¿ DESEAS CONTINUAR ? ","CONFIRMACIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0] );
+                    if (respuesta == JOptionPane.YES_OPTION ){
+                        String consulta="INSERT INTO producto( id,nombre,precio,cantidad,descripcion)values('"+clave+"','"+nombre+"','"+precio+"','"+cantidad+"','"+descripcion+"')";
+                        System.out.println(consulta);
+                        PreparedStatement ps = cn.prepareStatement(consulta);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "DATOS DEL PRODUCTO INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
+                        cargarProductos();
+                        llenarTabla();
+                    }else if (respuesta == JOptionPane.CLOSED_OPTION || respuesta == JOptionPane.NO_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+
+            } catch  (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+   
 public void cargarProductos() {
     // Asegúrate de que la conexión esté establecida
     if (cn == null) {
@@ -641,13 +665,13 @@ public void llenarTabla(){
 
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel;
     private javax.swing.JComboBox<String> cboItem;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -173,32 +173,32 @@ Connection cn=con.conectar();
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         if (txtNombre.getText().isEmpty()||txtApellidoP.getText().isEmpty()||txtApellidoM.getText().isEmpty()||txtEmail.getText().isEmpty()||txtPassword.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.ERROR_MESSAGE);
         }else{
-        try {
-        String nombre=txtNombre.getText();
-        String apeP=txtApellidoP.getText();
-        String apeM=txtApellidoM.getText();
-        String emal=txtEmail.getText();
-        String pass=txtPassword.getText();
-        String rol="empleado";
-        String query="SELECT * FROM usuarios where email=?";
-        PreparedStatement psi = cn.prepareStatement(query);
-        psi.setString(1, emal);
-        ResultSet rs = psi.executeQuery();
-        
-        if (rs.next()==true){
-        JOptionPane.showMessageDialog(null, "YA EXISTE UN USUARIO REGISTRADO CON ESTE EMAIL","",JOptionPane.ERROR_MESSAGE);
-        }else{
-        String consulta="INSERT INTO usuarios( nombre,apellido_paterno,apellido_materno,email,pass,rol)values('"+nombre+"','"+apeP+"','"+apeM+"','"+emal+"','"+pass+"','"+rol+"')";
-        PreparedStatement ps = cn.prepareStatement(consulta);
-        ps.executeUpdate();
-        JOptionPane.showMessageDialog(null, "DATOS INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
-        this.dispose(); 
-        }
-        
-        } catch  (Exception e) {
-         JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR EL USUARIO"+e,"",JOptionPane.ERROR_MESSAGE);
+            try {
+                String nombre=txtNombre.getText();
+                String apeP=txtApellidoP.getText();
+                String apeM=txtApellidoM.getText();
+                String emal=txtEmail.getText();
+                String pass=txtPassword.getText();
+                String rol="empleado";
+                String query="SELECT * FROM usuarios where email=?";
+                PreparedStatement psi = cn.prepareStatement(query);
+                psi.setString(1, emal);
+                ResultSet rs = psi.executeQuery();
+
+                if (rs.next()==true){
+                    JOptionPane.showMessageDialog(null, "YA EXISTE UN USUARIO REGISTRADO CON ESTE EMAIL","",JOptionPane.ERROR_MESSAGE);
+                }else{
+                    String consulta="INSERT INTO usuarios( nombre,apellido_paterno,apellido_materno,email,pass,rol)values('"+nombre+"','"+apeP+"','"+apeM+"','"+emal+"','"+pass+"','"+rol+"')";
+                    PreparedStatement ps = cn.prepareStatement(consulta);
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "DATOS INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }
+
+            } catch  (Exception e) {
+                JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR EL USUARIO"+e,"",JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnUsuarioActionPerformed

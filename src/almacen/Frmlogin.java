@@ -6,14 +6,11 @@
 package almacen;
 
 import conexion.ConexionMysql;
-import config.FondoPanel;
-import formularios.FormularioAdministrador;
-import formularios.FormularioEmpleado;
+import config.Utilidades;
+import formularios.FormularioPrincipal;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,15 +44,9 @@ Connection conexionn=conexion.conectar();
                 jLabel1.getHeight(), 
                 Image.SCALE_SMOOTH);
                 jLabel1.setIcon(new ImageIcon(scaledImage));
-        FondoPanel.setIcon(this, "/imagenes/login.png");
+        Utilidades.setIcon(this, "/imagenes/login.png");
 
-    // Al cerrar la ventana de login, mostrar la ventana principal nuevamente
-    this.addWindowListener(new WindowAdapter() {
-        @Override
-        public void windowClosing(WindowEvent e) {
-            parent.setVisible(true);  // Muestra la ventana principal
-        }
-    });
+    
     
      txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
     public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -100,7 +91,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CONTRASEÑA:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, -1, -1));
@@ -112,7 +103,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         });
         jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 210, 32));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("EMAIL:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 70, -1));
@@ -131,7 +122,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         jPanel1.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 210, 32));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jButton1.setText("INICIAR SESION");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +138,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 550, 380));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         jLabel4.setText("  BIENVENIDO AL SISTEMA DE MÓVIL PLUS");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
@@ -175,19 +166,24 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                 ResultSet rs=ps.executeQuery();
                 if(rs.next()){
 
-                    String tiponivel=rs.getString("rol");
+                    /*String tiponivel=rs.getString("rol");
 
                     if(tiponivel.equalsIgnoreCase("administrador")){
                         dispose();
 
-                        FormularioAdministrador admin=new FormularioAdministrador();
+                        FormularioInventario admin=new FormularioInventario();
                         admin.setVisible(true);
                     }else if(tiponivel.equalsIgnoreCase("empleado")){
                         dispose();
 
                         FormularioEmpleado empled=new FormularioEmpleado();
                         empled.setVisible(true);
-                    }
+                    }*/
+                    dispose();
+
+                        FormularioPrincipal formularioPrincipal=new FormularioPrincipal();
+                        formularioPrincipal.setVisible(true);
+                    
                 }else{
                     String errorDetails = "CONTRASEÑA O CORREO ELECTRONICO INCORRECTOS";
                     JOptionPane.showMessageDialog(null, errorDetails, "", JOptionPane.ERROR_MESSAGE);
