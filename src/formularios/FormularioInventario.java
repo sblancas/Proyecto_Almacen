@@ -6,6 +6,7 @@
 package formularios;
 
 import conexion.ConexionMysql;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -61,7 +62,12 @@ Connection cn=con.conectar();
             }
         });
     
+    agregarValidacionNumerica(txtClave, "Solo se permiten números en la clave");
+    agregarValidacionNumerica(txtPreciop, "Solo se permiten números y decimales en el precio");
+    agregarValidacionNumerica(txtCantidadp, "Solo se permiten números en la cantidad");
     
+    // Configurar el botón "Registrar" como predeterminado
+    this.getRootPane().setDefaultButton(btnAgregar);
     }
 
     /**
@@ -151,7 +157,7 @@ Connection cn=con.conectar();
         jPanel2.setBackground(new java.awt.Color(255, 204, 153));
 
         btnAgregar.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
-        btnAgregar.setText("AGREGAR");
+        btnAgregar.setText("REGISTRAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -326,8 +332,13 @@ Connection cn=con.conectar();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-   
     try {
+        // Validación para asegurarse de que se haya seleccionado un ítem en cboItem
+        if (cboItem.getSelectedItem() == null || cboItem.getSelectedItem().toString().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo de búsqueda no puede estar vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;  // Detener la ejecución si el campo está vacío
+        }
+        
         String item = cboItem.getSelectedItem().toString().trim();
         String query = "SELECT * FROM producto WHERE nombre=?";
         PreparedStatement ps = cn.prepareStatement(query);
@@ -335,19 +346,22 @@ Connection cn=con.conectar();
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            txtClave.setText(rs.getString(1));
+            txtClave.setText(rs.getString(1));  // Asignar valor de la clave
             txtNombrep.setText(rs.getString(2));
             txtPreciop.setText(" $ " + rs.getString(3) + " MXN ");
             txtCantidadp.setText(rs.getString(4));
             txtDescripcion.setText(rs.getString(5));
+
+            // Inhabilitar el campo clave para que no se pueda modificar
+            txtClave.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontraron registros para mostrar", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Ocurrió un error", "", JOptionPane.ERROR_MESSAGE);
         cboItem.removeAllItems();
-    
-}
+    }
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -399,48 +413,54 @@ Connection cn=con.conectar();
     }//GEN-LAST:event_cboItemActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    try {
-    if (txtClave.getText().isEmpty()|| txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
-      
-      
-      JOptionPane.showMessageDialog(null, "NO SE PERMITE ACTUALIZAR CAMPOS VACIOS","",JOptionPane.ERROR_MESSAGE); 
-}else{ 
-        
-    
-        int    clave  = Integer.parseInt(txtClave.getText());
-        String nombre = txtNombrep.getText();
-        double precio = formatearPrecio(txtPreciop.getText());
-        int cantidad = Integer.parseInt(txtCantidadp.getText());
-        String descripcion  = txtDescripcion.getText();
-        String lista=cboItem.getSelectedItem().toString();
-        
-        String consulta="UPDATE producto SET id=?, nombre=? ,precio=? ,cantidad=? ,descripcion=? where nombre=?";
-        PreparedStatement ps = cn.prepareStatement(consulta);
-        ps.setInt(1, clave);
-        ps.setString(2, nombre);
-        ps.setDouble(3, precio);
-        ps.setInt(4, cantidad);
-        ps.setString(5, descripcion );
-        ps.setString(6, lista);
-        int valor = ps.executeUpdate();
-        if(valor==1){
-        JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO EXITOSAMENTE","",JOptionPane.INFORMATION_MESSAGE); 
-        txtClave.setText("");
-        txtNombrep.setText("");
-        txtPreciop.setText("");
-        txtCantidadp.setText("");
-        txtDescripcion.setText("");
-        txtNombrep.requestFocus();
-        cargarProductos();
-        llenarTabla();
-        }
+      try {
+        if (txtClave.getText().isEmpty() || txtNombrep.getText().isEmpty() || 
+            txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || 
+            txtDescripcion.getText().isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "NO SE PERMITE ACTUALIZAR CAMPOS VACÍOS", "", JOptionPane.ERROR_MESSAGE);
+        } else { 
+            int clave = Integer.parseInt(txtClave.getText());
+            String nombre = txtNombrep.getText();
+            double precio = formatearPrecio(txtPreciop.getText());
+            int cantidad = Integer.parseInt(txtCantidadp.getText());
+            String descripcion = txtDescripcion.getText();
+            String lista = cboItem.getSelectedItem().toString();
+            
+            String consulta = "UPDATE producto SET id=?, nombre=?, precio=?, cantidad=?, descripcion=? WHERE nombre=?";
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ps.setInt(1, clave);
+            ps.setString(2, nombre);
+            ps.setDouble(3, precio);
+            ps.setInt(4, cantidad);
+            ps.setString(5, descripcion);
+            ps.setString(6, lista);
+            
+            int valor = ps.executeUpdate();
+            if (valor == 1) {
+                JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO EXITOSAMENTE", "", JOptionPane.INFORMATION_MESSAGE); 
+                
+                // Limpiar campos
+                txtClave.setText("");
+                txtNombrep.setText("");
+                txtPreciop.setText("");
+                txtCantidadp.setText("");
+                txtDescripcion.setText("");
+                txtNombrep.requestFocus();
+                
+                // Habilitar el campo Clave
+                txtClave.setEnabled(true);
+
+                // Recargar datos
+                cargarProductos();
+                llenarTabla();
+            }
         }
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex,"",JOptionPane.ERROR_MESSAGE); 
-            
-    }
+        JOptionPane.showMessageDialog(null, ex, "", JOptionPane.ERROR_MESSAGE); 
     
-            // TODO add your handling code here:
+}
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -554,42 +574,53 @@ Connection cn=con.conectar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (txtClave.getText().isEmpty()||txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
+        if (txtClave.getText().isEmpty() || txtNombrep.getText().isEmpty() || txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Debes completar todos los campos", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    try {
+        // Validaciones numéricas
+        int clave = Integer.parseInt(txtClave.getText());
+        double precio = formatearPrecio(txtPreciop.getText());
+        int cantidad = Integer.parseInt(txtCantidadp.getText());
 
-            JOptionPane.showMessageDialog(null,"DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.WARNING_MESSAGE);
-        }else{
-            try{
-                int    clave  = Integer.parseInt(txtClave.getText());
-                String nombre = txtNombrep.getText();
-                double precio =formatearPrecio(txtPreciop.getText());
-                int cantidad = Integer.parseInt(txtCantidadp.getText());
-                String descripcion=txtDescripcion.getText();
-                String query="SELECT * FROM producto where id=?";
-                PreparedStatement psx = cn.prepareStatement(query);
-                psx.setInt(1, clave);
-                ResultSet rs = psx.executeQuery();
+        // Continuar con el resto del procesamiento
+        String nombre = txtNombrep.getText();
+        String descripcion = txtDescripcion.getText();
 
-                if (rs.next()==true){
-                    JOptionPane.showMessageDialog(null, "YA EXISTE UN PRODUCTO REGISTRADO CON ESA CLAVE","",JOptionPane.ERROR_MESSAGE);
-                }else{
-                    Object[]options = {"ACEPTAR","CANCELAR"};
-                    int respuesta = JOptionPane.showOptionDialog(null,"¿ DESEAS CONTINUAR ? ","CONFIRMACIÓN",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0] );
-                    if (respuesta == JOptionPane.YES_OPTION ){
-                        String consulta="INSERT INTO producto( id,nombre,precio,cantidad,descripcion)values('"+clave+"','"+nombre+"','"+precio+"','"+cantidad+"','"+descripcion+"')";
-                        System.out.println(consulta);
-                        PreparedStatement ps = cn.prepareStatement(consulta);
-                        ps.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "DATOS DEL PRODUCTO INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
-                        cargarProductos();
-                        llenarTabla();
-                    }else if (respuesta == JOptionPane.CLOSED_OPTION || respuesta == JOptionPane.NO_OPTION) {
-                        JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
+        String query = "SELECT * FROM producto WHERE id=?";
+        PreparedStatement psx = cn.prepareStatement(query);
+        psx.setInt(1, clave);
+        ResultSet rs = psx.executeQuery();
 
-            } catch  (Exception e) {
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con esa clave", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Object[] options = {"Aceptar", "Cancelar"};
+            int respuesta = JOptionPane.showOptionDialog(null, "¿Deseas continuar?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                String consulta = "INSERT INTO producto(id, nombre, precio, cantidad, descripcion) VALUES(?, ?, ?, ?, ?)";
+                PreparedStatement ps = cn.prepareStatement(consulta);
+                ps.setInt(1, clave);
+                ps.setString(2, nombre);
+                ps.setDouble(3, precio);
+                ps.setInt(4, cantidad);
+                ps.setString(5, descripcion);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Datos del producto insertados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarProductos();
+                llenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor, introduce valores numéricos válidos en Clave, Precio y Cantidad", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
    
@@ -663,6 +694,34 @@ public void llenarTabla(){
 
 
 
+}
+
+private void agregarValidacionNumerica(javax.swing.JTextField campo, String mensajeTooltip) {
+    campo.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            char c = evt.getKeyChar();
+
+            // Ignorar la tecla Enter
+            if (c == KeyEvent.VK_ENTER) {
+                evt.consume();
+                return;
+            }
+
+            // Permitir la tecla Backspace o Delete
+            if (Character.isISOControl(c)) { // Teclas de control como Backspace o Delete
+                return;
+            }
+
+            // Validar que solo se permitan números, puntos decimales y signos negativos
+            if (!Character.isDigit(c) && c != '.' && c != '-') {
+                evt.consume(); // Bloquea la entrada
+                campo.setText(""); // Limpia el contenido del campo
+                campo.setToolTipText(mensajeTooltip); // Muestra un globo de ayuda
+                JOptionPane.showMessageDialog(null, mensajeTooltip, "Entrada inválida", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    });
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
