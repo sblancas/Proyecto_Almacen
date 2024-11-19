@@ -5,6 +5,7 @@
  */
 package Ventas;
 import conexion.ConexionMysql;
+import config.Utilidades;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -21,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -56,6 +58,15 @@ Connection cn=con.conectar();
                 parent.setVisible(true);
             }
         });
+        
+        // Método de inicialización, usualmente en el constructor o initComponents
+DefaultTableModel model = new DefaultTableModel(
+    new Object[]{"Clave", "Nombre", "Precio", "Cantidad", "Descripción", "Eliminar"},
+    0 // Este 0 indica que inicialmente no hay filas
+);
+jTable1.setModel(model);
+
+
     }
 
    public void cargarProductos() {
@@ -214,15 +225,23 @@ Connection cn=con.conectar();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Clave", "Nombre", "Precio", "Cantidad", "Descripcion", "Eliminar"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 720, 130));
@@ -331,7 +350,49 @@ public void cargarDatosProductoSeleccionado() {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+// Obtener los datos del producto seleccionado
+
+    String clave = txtClave.getText().trim();
+    String nombre = txtNombrep.getText().trim();
+    String precioStr = txtPreciop.getText().trim();
+    String cantidadStr = jSpinner1.getValue().toString();
+    String descripcion = txtDescripcion.getText().trim();
+
+    // Validar que los campos requeridos no estén vacíos
+    if (clave.isEmpty() || nombre.isEmpty() || precioStr.isEmpty() || cantidadStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validar que el precio y la cantidad sean números válidos
+    double precio;
+    int cantidad;
+    try {
+        precio = Double.parseDouble(precioStr);
+        cantidad = Integer.parseInt(cantidadStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El precio y la cantidad deben ser valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Calcular el total por el producto
+    double total = precio * cantidad;
+
+    // Agregar los datos a la tabla, con un valor "X" en la columna de eliminar
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.addRow(new Object[]{clave, nombre, precio, cantidad, descripcion, "X"});
+
+    // Limpiar los campos después de agregar
+    limpiarCampos();
+}                                         
+
+private void limpiarCampos() {
+    txtClave.setText("");
+    txtNombrep.setText("");
+    txtPreciop.setText("");
+    txtDescripcion.setText("");
+    jSpinner1.setValue(1);
+    comboProductos.setSelectedIndex(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     

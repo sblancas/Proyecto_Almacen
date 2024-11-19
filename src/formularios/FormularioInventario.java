@@ -6,6 +6,7 @@
 package formularios;
 
 import conexion.ConexionMysql;
+import config.Utilidades;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -36,6 +37,7 @@ public class FormularioInventario extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
+Utilidades utilidades = new Utilidades(null);
 
 
     /**
@@ -375,7 +377,7 @@ Connection cn=con.conectar();
     
         int    clave  = Integer.parseInt(txtClave.getText());
         String nombre = txtNombrep.getText();
-        double precio = formatearPrecio(txtPreciop.getText());
+        double precio = utilidades.formatearPrecio(txtPreciop.getText());
         int cantidad = Integer.parseInt(txtCantidadp.getText());
         String descripcion  = txtDescripcion.getText();
         String lista=cboItem.getSelectedItem().toString();
@@ -422,7 +424,7 @@ Connection cn=con.conectar();
         } else { 
             int clave = Integer.parseInt(txtClave.getText());
             String nombre = txtNombrep.getText();
-            double precio = formatearPrecio(txtPreciop.getText());
+            double precio = utilidades.formatearPrecio(txtPreciop.getText());
             int cantidad = Integer.parseInt(txtCantidadp.getText());
             String descripcion = txtDescripcion.getText();
             String lista = cboItem.getSelectedItem().toString();
@@ -582,7 +584,7 @@ Connection cn=con.conectar();
     try {
         // Validaciones numéricas
         int clave = Integer.parseInt(txtClave.getText());
-        double precio = formatearPrecio(txtPreciop.getText());
+        double precio = utilidades.formatearPrecio(txtPreciop.getText());
         int cantidad = Integer.parseInt(txtCantidadp.getText());
 
         // Continuar con el resto del procesamiento
@@ -657,13 +659,6 @@ public void cargarProductos() {
         // Manejo de errores, imprimiendo la excepción
         e.printStackTrace();  // Esto te ayudará a ver si algo está fallando
     }
-}
-public double formatearPrecio(String txtPreciop){
-
-String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
-        
-        
-        return Double.parseDouble(valorLimpio);
 }
 public void llenarTabla(){
     try {
