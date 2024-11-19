@@ -7,8 +7,6 @@ package formularios;
 
 import Ventas.VentaProductos;
 import config.Utilidades;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -22,7 +20,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
      * Creates new form FormularioPanelControl
      */
 // Crear panel de fondo con imagen específica para el Formulario 1
-    Utilidades fondo = new Utilidades("../imagenes/compras.jpg");
+    Utilidades fondo = new Utilidades("/imagenes/baner.png");
 
     public FormularioPrincipal() {
         this.setContentPane(fondo);
@@ -31,7 +29,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(720, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
         
       
 

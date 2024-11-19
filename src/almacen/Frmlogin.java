@@ -179,7 +179,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                         FormularioEmpleado empled=new FormularioEmpleado();
                         empled.setVisible(true);
                     }*/
-                    dispose();
+                    //dispose();
 
                         FormularioPrincipal formularioPrincipal=new FormularioPrincipal();
                         formularioPrincipal.setVisible(true);
