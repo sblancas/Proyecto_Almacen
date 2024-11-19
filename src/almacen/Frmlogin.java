@@ -189,7 +189,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                     JOptionPane.showMessageDialog(null, errorDetails, "", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"ERROR AL INICIAR SESION"+e,"",JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
         }else{
 
