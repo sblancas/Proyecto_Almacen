@@ -39,13 +39,6 @@ import javax.swing.JPanel;
         frame.setIconImage(icon.getImage());
     }
     
-    public double formatearPrecio(String txtPreciop){
-
-String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
-        
-        
-        return Double.parseDouble(valorLimpio);
-}
-
+    
     
 }

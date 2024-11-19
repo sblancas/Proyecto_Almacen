@@ -37,7 +37,6 @@ public class FormularioInventario extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
-Utilidades utilidades = new Utilidades(null);
 
 
     /**
@@ -69,7 +68,7 @@ Utilidades utilidades = new Utilidades(null);
     agregarValidacionNumerica(txtCantidadp, "Solo se permiten números en la cantidad");
     
     // Configurar el botón "Registrar" como predeterminado
-    this.getRootPane().setDefaultButton(btnAgregar);
+   // this.getRootPane().setDefaultButton(btnAgregar);
     }
 
     /**
@@ -97,7 +96,6 @@ Utilidades utilidades = new Utilidades(null);
         btnEliminar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnExportarExcel = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
@@ -195,14 +193,6 @@ Utilidades utilidades = new Utilidades(null);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
-        jButton1.setText("BUSCAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -212,24 +202,20 @@ Utilidades utilidades = new Utilidades(null);
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(41, 41, 41)
                         .addComponent(btnExportarExcel)
                         .addGap(21, 21, 21))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 101, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregar))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEliminar)
                         .addComponent(btnExportarExcel)))
@@ -377,7 +363,7 @@ Utilidades utilidades = new Utilidades(null);
     
         int    clave  = Integer.parseInt(txtClave.getText());
         String nombre = txtNombrep.getText();
-        double precio = utilidades.formatearPrecio(txtPreciop.getText());
+        double precio = formatearPrecio(txtPreciop.getText());
         int cantidad = Integer.parseInt(txtCantidadp.getText());
         String descripcion  = txtDescripcion.getText();
         String lista=cboItem.getSelectedItem().toString();
@@ -424,7 +410,7 @@ Utilidades utilidades = new Utilidades(null);
         } else { 
             int clave = Integer.parseInt(txtClave.getText());
             String nombre = txtNombrep.getText();
-            double precio = utilidades.formatearPrecio(txtPreciop.getText());
+            double precio = formatearPrecio(txtPreciop.getText());
             int cantidad = Integer.parseInt(txtCantidadp.getText());
             String descripcion = txtDescripcion.getText();
             String lista = cboItem.getSelectedItem().toString();
@@ -464,10 +450,6 @@ Utilidades utilidades = new Utilidades(null);
 }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
         // Ruta donde se guardará el archivo Excel
@@ -584,7 +566,7 @@ Utilidades utilidades = new Utilidades(null);
     try {
         // Validaciones numéricas
         int clave = Integer.parseInt(txtClave.getText());
-        double precio = utilidades.formatearPrecio(txtPreciop.getText());
+        double precio = formatearPrecio(txtPreciop.getText());
         int cantidad = Integer.parseInt(txtCantidadp.getText());
 
         // Continuar con el resto del procesamiento
@@ -718,13 +700,21 @@ private void agregarValidacionNumerica(javax.swing.JTextField campo, String mens
         }
     });
 }
+
+public double formatearPrecio(String txtPreciop){
+
+    String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
+        
+        
+        return Double.parseDouble(valorLimpio);
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel;
     private javax.swing.JComboBox<String> cboItem;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

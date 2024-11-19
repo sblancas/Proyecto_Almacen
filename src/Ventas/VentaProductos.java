@@ -41,7 +41,7 @@ Connection cn=con.conectar();
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("FORMULARIO REGISTRO");
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
         this.setResizable(false); // para no permitir reajuste
         cargarProductos();// carga productos al iniciar form la tabla
         comboProductos.addItemListener(e -> {
