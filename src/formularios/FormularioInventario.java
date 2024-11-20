@@ -402,7 +402,7 @@ Connection cn=con.conectar();
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       try {
-        if (txtClave.getText().isEmpty() || txtNombrep.getText().isEmpty() || 
+        if ( txtNombrep.getText().isEmpty() || 
             txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || 
             txtDescripcion.getText().isEmpty()) {
             
@@ -415,14 +415,14 @@ Connection cn=con.conectar();
             String descripcion = txtDescripcion.getText();
             String lista = cboItem.getSelectedItem().toString();
             
-            String consulta = "UPDATE producto SET id=?, nombre=?, precio=?, cantidad=?, descripcion=? WHERE nombre=?";
+            String consulta = "UPDATE producto SET  nombre=?, precio=?, cantidad=?, descripcion=? WHERE id=?";
             PreparedStatement ps = cn.prepareStatement(consulta);
-            ps.setInt(1, clave);
-            ps.setString(2, nombre);
-            ps.setDouble(3, precio);
-            ps.setInt(4, cantidad);
-            ps.setString(5, descripcion);
-            ps.setString(6, lista);
+            ps.setString(1, nombre);
+            ps.setDouble(2, precio);
+            ps.setInt(3, cantidad);
+            ps.setString(4, descripcion);
+            
+            ps.setInt(5, clave);
             
             int valor = ps.executeUpdate();
             if (valor == 1) {
@@ -445,7 +445,8 @@ Connection cn=con.conectar();
             }
         }
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex, "", JOptionPane.ERROR_MESSAGE); 
+    ex.printStackTrace();
+//        JOptionPane.showMessageDialog(null, ex, "", JOptionPane.ERROR_MESSAGE); 
     
 }
         // TODO add your handling code here:
