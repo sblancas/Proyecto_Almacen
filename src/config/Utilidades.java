@@ -29,7 +29,7 @@ import javax.swing.JPanel;
         super.paintComponent(g);
         // Dibuja la imagen de fondo escalada al tamaño del panel
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-    }
+    }//checo la ratona
 
 
      // Método para establecer el icono en un JFrame
