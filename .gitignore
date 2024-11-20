@@ -34,3 +34,7 @@ Thumbs.db  # Windows
 /out/
 /build/
 /dist/
+
+# Ignorar configuraciones privadas de NetBeans
+nbproject/private/
+
