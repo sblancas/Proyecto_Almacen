@@ -165,7 +165,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                 PreparedStatement ps = conexionn.prepareStatement(consulta);
                 ResultSet rs=ps.executeQuery();
                 if(rs.next()){
-
+                String rol=rs.getString("rol");
                     /*String tiponivel=rs.getString("rol");
 
                     if(tiponivel.equalsIgnoreCase("administrador")){
@@ -181,7 +181,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                     }*/
                     //dispose();
 
-                        FormularioPrincipal formularioPrincipal=new FormularioPrincipal();
+                        FormularioPrincipal formularioPrincipal=new FormularioPrincipal(rol,usuario);
                         formularioPrincipal.setVisible(true);
                     
                 }else{

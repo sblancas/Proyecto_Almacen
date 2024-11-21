@@ -6,7 +6,6 @@
 package formularios;
 
 import conexion.ConexionMysql;
-import config.Utilidades;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -42,10 +41,10 @@ Connection cn=con.conectar();
     /**
      * Creates new form FormularioAdministrador
      */
-    public FormularioInventario(JFrame parent) {
+    public FormularioInventario(JFrame parent, String rol, String usuario) {
     this.setLocationRelativeTo(null);
-    this.setTitle("INVENTARIO ");setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
-    
+    this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
+    setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
     this.setSize(720,560);
     initComponents();
     setLocationRelativeTo(null);
@@ -69,6 +68,16 @@ Connection cn=con.conectar();
     
     // Configurar el botón "Registrar" como predeterminado
    // this.getRootPane().setDefaultButton(btnAgregar);
+   
+    // Lógica para habilitar/deshabilitar botones
+    if (!rol.equalsIgnoreCase("administrador")) {
+        btnAgregar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnExportarExcel.setEnabled(false);
+        jButton2.setEnabled(false);
+        // El botón Buscar debe estar habilitado
+        btnBuscar.setEnabled(true);
+    }
     }
 
     /**

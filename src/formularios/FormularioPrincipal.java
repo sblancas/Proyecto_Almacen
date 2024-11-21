@@ -21,8 +21,10 @@ public class FormularioPrincipal extends javax.swing.JFrame {
      */
 // Crear panel de fondo con imagen específica para el Formulario 1
     Utilidades fondo = new Utilidades("/imagenes/baner.png");
+    String usuario;
+    String rol;
 
-    public FormularioPrincipal() {
+    public FormularioPrincipal(String usuario,String rol) {
         this.setContentPane(fondo);
 
         initComponents();
@@ -30,8 +32,11 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.setSize(720, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
-        
-      
+       // Mostrar el nombre del usuario en un JLabel u otro componente adignamos rol a variable
+       this.usuario=usuario;
+       this.rol=rol;
+      setTitle( "Bienvenido " + this.usuario+": "+this.rol+ "!");
+
 
     }
 
@@ -126,7 +131,8 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    FormularioInventario inventario = new FormularioInventario(this);
+    
+    FormularioInventario inventario = new FormularioInventario(this, usuario,rol);
     this.setVisible(false);
     inventario.setVisible(true);
     inventario.setLocationRelativeTo(null);        
