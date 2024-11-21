@@ -20,7 +20,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
      * Creates new form FormularioPanelControl
      */
 // Crear panel de fondo con imagen específica para el Formulario 1
-    Utilidades fondo = new Utilidades("/imagenes/baner.png");
+    Utilidades fondo = new Utilidades("/imagenes/pass.png");
     String usuario;
     String rol;
 
@@ -31,7 +31,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(720, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
        // Mostrar el nombre del usuario en un JLabel u otro componente adignamos rol a variable
        this.usuario=usuario;
        this.rol=rol;
