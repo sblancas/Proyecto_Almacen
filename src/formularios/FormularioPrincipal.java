@@ -24,7 +24,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     String usuario;
     String rol;
 
-    public FormularioPrincipal(String usuario,String rol) {
+    public FormularioPrincipal(String rol,String usuario) {
         this.setContentPane(fondo);
 
         initComponents();
@@ -35,7 +35,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
        // Mostrar el nombre del usuario en un JLabel u otro componente adignamos rol a variable
        this.usuario=usuario;
        this.rol=rol;
-      setTitle( "Bienvenido " + this.usuario+": "+this.rol+ "!");
+      setTitle( "Bienvenido " + this.rol+": "+this.usuario+ "!");
 
 
     }
@@ -132,7 +132,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     
-    FormularioInventario inventario = new FormularioInventario(this, usuario,rol);
+    FormularioInventario inventario = new FormularioInventario(this, rol,usuario);
     this.setVisible(false);
     inventario.setVisible(true);
     inventario.setLocationRelativeTo(null);        

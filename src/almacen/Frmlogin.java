@@ -15,11 +15,7 @@ import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 /**
@@ -202,7 +198,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                             String rol = rs.getString("rol");
 
                             // Si el usuario y la contraseña son correctos, abrir el formulario principal
-                            FormularioPrincipal formularioPrincipal = new FormularioPrincipal(usuario, rol);
+                            FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
                             formularioPrincipal.setVisible(true);
                             dispose();  // Cierra el formulario de login
                         } else {
