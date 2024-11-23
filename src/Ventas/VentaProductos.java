@@ -32,14 +32,11 @@ public class VentaProductos extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
-    /**
-     * Creates new form VentaProductos
-     */
+
     public VentaProductos(JFrame parent) {
         timer.start();
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("FORMULARIO REGISTRO");
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
         this.setResizable(false); // para no permitir reajuste
         cargarProductos();// carga productos al iniciar form la tabla
@@ -60,7 +57,7 @@ Connection cn=con.conectar();
         
         // Método de inicialización, usualmente en el constructor o initComponents
 DefaultTableModel model = new DefaultTableModel(
-    new Object[]{"Clave", "Nombre", "Precio", "Cantidad", "Descripción", "Eliminar"},
+    new Object[]{"Clave", "Nombre", "Cantidad", "Precio", "Descripción", "Eliminar"},
     0 // Este 0 indica que inicialmente no hay filas
 );
 jTable1.setModel(model);
@@ -84,6 +81,10 @@ jTable1.setModel(model);
         // Limpiar el ComboBox antes de llenarlo
         comboProductos.removeAllItems();
         
+        
+        
+        // Agregar el placeholder como primer elemento
+        comboProductos.addItem("Selecciona un producto");
         // Llenar el ComboBox con los resultados
         while (rs.next()) {
             String producto = rs.getString("nombre");
@@ -171,7 +172,8 @@ jTable1.setModel(model);
         jLabel5.setText("Cantidad:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        hora.setBackground(new java.awt.Color(255, 255, 255));
+        hora.setBackground(new java.awt.Color(0, 0, 0));
+        hora.setForeground(new java.awt.Color(255, 255, 255));
         hora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hora.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         hora.setOpaque(true);
@@ -179,33 +181,53 @@ jTable1.setModel(model);
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Clave");
+        jLabel12.setText("Clave:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, -1));
-        jPanel1.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 180, -1));
+
+        txtClave.setEditable(false);
+        txtClave.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txtClave.setEnabled(false);
+        jPanel1.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 180, -1));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre  producto");
+        jLabel1.setText("Nombre  producto:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-        jPanel1.add(txtNombrep, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, -1));
+
+        txtNombrep.setEditable(false);
+        txtNombrep.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txtNombrep.setEnabled(false);
+        jPanel1.add(txtNombrep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 180, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Precio  producto");
+        jLabel2.setText("Precio  producto:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-        jPanel1.add(txtPreciop, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 180, -1));
+
+        txtPreciop.setEditable(false);
+        txtPreciop.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txtPreciop.setEnabled(false);
+        jPanel1.add(txtPreciop, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 180, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Cantidad  producto");
+        jLabel3.setText("Cantidad  disponible:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
-        jPanel1.add(txtCantidadp, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 180, -1));
+
+        txtCantidadp.setEditable(false);
+        txtCantidadp.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txtCantidadp.setEnabled(false);
+        jPanel1.add(txtCantidadp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 180, -1));
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Descripcion");
+        jLabel13.setText("Descripcion:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 180, -1));
+
+        txtDescripcion.setEditable(false);
+        txtDescripcion.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        txtDescripcion.setEnabled(false);
+        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 180, -1));
 
         jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jButton2.setText("Agregar");
@@ -230,11 +252,11 @@ jTable1.setModel(model);
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Clave", "Nombre", "Precio", "Cantidad", "Descripcion", "Eliminar"
+                "Clave", "Nombre", "Cantidad", "Precio", "Descripcion", "Eliminar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -243,7 +265,7 @@ jTable1.setModel(model);
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 720, 130));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 160));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -306,7 +328,7 @@ jTable1.setModel(model);
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -367,7 +389,7 @@ public void cargarDatosProductoSeleccionado() {
     double precio;
     int cantidad;
     try {
-        precio = Double.parseDouble(precioStr);
+        precio = formatearPrecio(precioStr);
         cantidad = Integer.parseInt(cantidadStr);
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "El precio y la cantidad deben ser valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -379,7 +401,7 @@ public void cargarDatosProductoSeleccionado() {
 
     // Agregar los datos a la tabla, con un valor "X" en la columna de eliminar
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.addRow(new Object[]{clave, nombre, precio, cantidad, descripcion, "X"});
+    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion, "X"});
 
     // Limpiar los campos después de agregar
     limpiarCampos();
@@ -390,24 +412,33 @@ private void limpiarCampos() {
     txtNombrep.setText("");
     txtPreciop.setText("");
     txtDescripcion.setText("");
+    txtCantidadp.setText("");
     jSpinner1.setValue(1);
-    comboProductos.setSelectedIndex(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
-    
+     
     
     Timer timer = new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Obtener la hora actual
-            String fechaHoraActual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+               String fechaHoraActual=null;
+       fechaHoraActual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             // Actualizar el texto del JLabel
             hora.setText(fechaHoraActual);
         }
 
     });
 
+    public double formatearPrecio(String txtPreciop){
+
+String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
+        
+        
+        return Double.parseDouble(valorLimpio);
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;

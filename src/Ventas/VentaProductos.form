@@ -20,7 +20,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" alignment="0" pref="843" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -117,6 +117,9 @@
         <Component class="javax.swing.JLabel" name="hora">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
@@ -137,7 +140,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Clave"/>
+            <Property name="text" type="java.lang.String" value="Clave:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -146,9 +149,16 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtClave">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="70" width="180" height="-1"/>
+              <AbsoluteConstraints x="160" y="70" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -160,7 +170,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre  producto"/>
+            <Property name="text" type="java.lang.String" value="Nombre  producto:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -169,9 +179,16 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombrep">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="100" width="180" height="-1"/>
+              <AbsoluteConstraints x="160" y="100" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -183,7 +200,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Precio  producto"/>
+            <Property name="text" type="java.lang.String" value="Precio  producto:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -192,9 +209,16 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPreciop">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="130" width="180" height="-1"/>
+              <AbsoluteConstraints x="160" y="130" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -206,7 +230,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cantidad  producto"/>
+            <Property name="text" type="java.lang.String" value="Cantidad  disponible:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -215,9 +239,16 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCantidadp">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="160" width="180" height="-1"/>
+              <AbsoluteConstraints x="160" y="160" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -229,7 +260,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Descripcion"/>
+            <Property name="text" type="java.lang.String" value="Descripcion:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -238,9 +269,16 @@
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDescripcion">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="150" y="190" width="180" height="-1"/>
+              <AbsoluteConstraints x="160" y="190" width="180" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -291,7 +329,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="40" width="720" height="130"/>
+              <AbsoluteConstraints x="0" y="0" width="850" height="160"/>
             </Constraint>
           </Constraints>
 
@@ -303,8 +341,8 @@
                   <Table columnCount="6" rowCount="4">
                     <Column editable="true" title="Clave" type="java.lang.Integer"/>
                     <Column editable="true" title="Nombre" type="java.lang.String"/>
-                    <Column editable="true" title="Precio" type="java.lang.Double"/>
                     <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
+                    <Column editable="true" title="Precio" type="java.lang.Double"/>
                     <Column editable="true" title="Descripcion" type="java.lang.String"/>
                     <Column editable="true" title="Eliminar" type="java.lang.Object"/>
                   </Table>
