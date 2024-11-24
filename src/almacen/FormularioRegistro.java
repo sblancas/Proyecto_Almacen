@@ -6,6 +6,8 @@
 package almacen;
 
 import conexion.ConexionMysql;
+import formularios.FormularioInicio;
+import formularios.FormularioInventario;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -183,7 +185,10 @@ Connection cn=con.conectar();
                     PreparedStatement ps = cn.prepareStatement(consulta);
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "DATOS INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    FormularioInicio inicio = new FormularioInicio();
+                    this.setVisible(false);
+                    inicio.setVisible(true);
+                    inicio.setLocationRelativeTo(null);        
                 }
 
             } catch  (Exception e) {
