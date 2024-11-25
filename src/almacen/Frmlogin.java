@@ -111,8 +111,8 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("EMAIL:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 70, -1));
+        jLabel3.setText("USUARIO:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 90, -1));
 
         jPassword.setBorder(null);
         jPassword.addMouseListener(new java.awt.event.MouseAdapter() {

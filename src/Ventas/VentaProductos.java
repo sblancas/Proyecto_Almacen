@@ -138,11 +138,9 @@ Connection cn=con.conectar();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -279,10 +277,6 @@ Connection cn=con.conectar();
         jLabel10.setText("Cambio:");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jLabel11.setText("Cambio:");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 171, -1, -1));
-
         jTextField4.setText("jTextField4");
         jPanel3.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 13, 113, -1));
 
@@ -292,12 +286,9 @@ Connection cn=con.conectar();
         jTextField7.setText("jTextField7");
         jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 113, -1));
 
-        jTextField9.setText("jTextField9");
-        jPanel3.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 173, 113, -1));
-
         jButton4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jButton4.setText("Registrar venta");
-        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 109, 150, 50));
 
         jLabel14.setText("jLabel14");
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 50, 20));
@@ -309,7 +300,7 @@ Connection cn=con.conectar();
         jLabel16.setText("jLabel14");
         jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 50, 20));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 460, 230));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 460, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -323,8 +314,7 @@ Connection cn=con.conectar();
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
         );
 
         pack();
@@ -437,7 +427,6 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -459,7 +448,6 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField txtCantidadp;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtDescripcion;

@@ -85,7 +85,7 @@ Connection cn=con.conectar();
         jPanel3.add(txtApellidoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 246, -1));
 
         txtEmail.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        txtEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
+        txtEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 246, -1));
 
         txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
