@@ -39,3 +39,7 @@ Thumbs.db  # Windows
 nbproject/
 build/
 dist/
+ConexionMysql.java
+
+
+
