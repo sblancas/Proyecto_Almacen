@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -33,37 +34,41 @@ ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
 
-    public VentaProductos(JFrame parent) {
-        timer.start();
-        initComponents();
-        this.setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
-        this.setResizable(false); // para no permitir reajuste
-        cargarProductos();// carga productos al iniciar form la tabla
-        comboProductos.addItemListener(e -> {
-    if (e.getStateChange() == ItemEvent.SELECTED) {
-        cargarDatosProductoSeleccionado();
-    }
-}); // Agrega el listener
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Esto hace que solo se cierre la ventana de login
+  public VentaProductos(JFrame parent) {
+    timer.start();
+    initComponents();
+    this.setLocationRelativeTo(null);
+    setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
+    this.setResizable(false); // Para no permitir reajuste
+    cargarProductos(); // Carga productos al iniciar form en la tabla
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Al cerrar, muestra el formulario principal
-                parent.setVisible(true);
-            }
-        });
-        
-        // Método de inicialización, usualmente en el constructor o initComponents
-DefaultTableModel model = new DefaultTableModel(
-    new Object[]{"Clave", "Nombre", "Cantidad", "Precio", "Descripción", "Eliminar"},
-    0 // Este 0 indica que inicialmente no hay filas
-);
-jTable1.setModel(model);
+    comboProductos.addItemListener(e -> {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            cargarDatosProductoSeleccionado();
+        }
+    }); // Agrega el listener
 
+    this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Esto hace que solo se cierre la ventana de login
 
-    }
+    addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            // Al cerrar, muestra el formulario principal
+            parent.setVisible(true);
+        }
+    });
+
+    // Método de inicialización para la tabla
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[]{"Clave", "Nombre", "Cantidad", "Precio", "Descripción", "Eliminar"},
+        0 // Este 0 indica que inicialmente no hay filas
+    );
+    jTable1.setModel(model);
+
+    // Configuración del editor de botón en la columna "Eliminar"
+    jTable1.getColumnModel().getColumn(5).setCellEditor(new BotonEditar(new JCheckBox(), model));
+    jTable1.getColumnModel().getColumn(5).setCellRenderer(new RenderizarBoton());
+}
 
    public void cargarProductos() {
     // Asegúrate de que la conexión esté establecida
@@ -387,7 +392,7 @@ return;
 
     // Agregar los datos a la tabla, con un valor "X" en la columna de eliminar
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion, "X"});
+    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion, "Eliminar"});
 
     // Limpiar los campos después de agregar
     limpiarCampos();
