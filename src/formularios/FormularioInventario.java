@@ -152,11 +152,6 @@ Connection cn=con.conectar();
 
         cboItem.setEditable(true);
         cboItem.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        cboItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboItemActionPerformed(evt);
-            }
-        });
         jPanel1.add(cboItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 130, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
@@ -405,10 +400,6 @@ Connection cn=con.conectar();
     
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void cboItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboItemActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       try {
         if ( txtNombrep.getText().isEmpty() || 
@@ -594,12 +585,14 @@ Connection cn=con.conectar();
             JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con esa clave", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
+        
         String query2 = "SELECT * FROM producto WHERE nombre=?";
-        PreparedStatement psd = cn.prepareStatement(query);
+        PreparedStatement psd = cn.prepareStatement(query2);
         psd.setString(1, nombre);
         ResultSet er = psd.executeQuery();
-        if (rs.next()) {
-            JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con ese ", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        if (er.next()) {
+            JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con ese nombre  ", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
 
