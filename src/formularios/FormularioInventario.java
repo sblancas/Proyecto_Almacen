@@ -553,6 +553,8 @@ Connection cn=con.conectar();
                 txtNombrep.requestFocus();
                 cargarProductos();
                 llenarTabla();
+                // Habilitar el campo Clave
+                txtClave.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
             }
@@ -590,7 +592,17 @@ Connection cn=con.conectar();
 
         if (rs.next()) {
             JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con esa clave", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
+        String query2 = "SELECT * FROM producto WHERE nombre=?";
+        PreparedStatement psd = cn.prepareStatement(query);
+        psd.setString(1, nombre);
+        ResultSet er = psd.executeQuery();
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con ese ", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else{
+
             Object[] options = {"Aceptar", "Cancelar"};
             int respuesta = JOptionPane.showOptionDialog(null, "¿Deseas continuar?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if (respuesta == JOptionPane.YES_OPTION) {
@@ -609,6 +621,7 @@ Connection cn=con.conectar();
             } else {
                 JOptionPane.showMessageDialog(null, "Operación cancelada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
+        }
         }
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor, introduce valores numéricos válidos en Clave, Precio y Cantidad", "Error de entrada", JOptionPane.ERROR_MESSAGE);

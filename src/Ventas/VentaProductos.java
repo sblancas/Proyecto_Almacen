@@ -109,7 +109,6 @@ jTable1.setModel(model);
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         comboProductos = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -124,7 +123,7 @@ jTable1.setModel(model);
         txtCantidadp = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -147,15 +146,6 @@ jTable1.setModel(model);
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jButton1.setText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,14 +217,14 @@ jTable1.setModel(model);
         txtDescripcion.setEnabled(false);
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 180, -1));
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 20));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 20));
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, -1));
@@ -358,11 +348,7 @@ public void cargarDatosProductoSeleccionado() {
         JOptionPane.showMessageDialog(null, "Ocurrió un error al cargar los datos del producto", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 // Obtener los datos del producto seleccionado
 
     String clave = txtClave.getText().trim();
@@ -376,7 +362,15 @@ public void cargarDatosProductoSeleccionado() {
         JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
+    int  cantidadDisponible = Integer.parseInt( txtCantidadp.getText().toString());
+    int cantidadIngresada= Integer.parseInt(cantidadStr);
+    
+    if(cantidadIngresada > cantidadDisponible){
+        
+JOptionPane.showMessageDialog(this, 
+    "No contamos con las piezas solicitadas. La cantidad máxima es " + cantidadDisponible + ".","Error",JOptionPane.ERROR_MESSAGE);        
+return;
+    }
     // Validar que el precio y la cantidad sean números válidos
     double precio;
     int cantidad;
@@ -406,7 +400,7 @@ private void limpiarCampos() {
     txtDescripcion.setText("");
     txtCantidadp.setText("");
     jSpinner1.setValue(1);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     
      
@@ -432,10 +426,9 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
 }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
