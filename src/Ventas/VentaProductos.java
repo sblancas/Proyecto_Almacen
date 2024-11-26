@@ -134,10 +134,8 @@ Connection cn=con.conectar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtSubTotal = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         txtTotalPagar = new javax.swing.JTextField();
         btnRegistrarVenta = new javax.swing.JButton();
@@ -259,26 +257,15 @@ Connection cn=con.conectar();
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jLabel6.setText("Subtotal:");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
-
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel9.setText("Total a pagar:");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel10.setText("Cambio:");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
-
-        txtSubTotal.setText("jTextField4");
-        jPanel3.add(txtSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 113, -1));
-
-        jTextField6.setText("jTextField6");
         jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 80, -1));
-
-        txtTotalPagar.setText("jTextField7");
-        jPanel3.add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 113, -1));
+        jPanel3.add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 113, 20));
 
         btnRegistrarVenta.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         btnRegistrarVenta.setText("Registrar venta");
@@ -287,8 +274,6 @@ Connection cn=con.conectar();
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel15.setText("Efectivo:");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
-
-        jTextField1.setText("jTextField1");
         jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 80, -1));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 460, 180));
@@ -425,7 +410,6 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -440,7 +424,6 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombrep;
     private javax.swing.JTextField txtPreciop;
-    private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotalPagar;
     // End of variables declaration//GEN-END:variables
 }

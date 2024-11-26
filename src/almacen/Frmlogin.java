@@ -9,6 +9,7 @@ import conexion.ConexionMysql;
 import config.Utilidades;
 import formularios.FormularioPrincipal;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -18,6 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 /**
  *
  * @author sergi
@@ -197,11 +202,39 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                         if (rs.next()) {
                             String rol = rs.getString("rol");
 
-                            // Si el usuario y la contraseña son correctos, abrir el formulario principal
-                            JOptionPane.showMessageDialog(null,"Datos insertados correctamente","",JOptionPane.INFORMATION_MESSAGE);
-                            FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
-                            formularioPrincipal.setVisible(true);
-                            dispose();  // Cierra el formulario de login
+                                        // Crear una etiqueta con el mensaje
+                          JLabel mensaje = new JLabel("Inicio exitoso", SwingConstants.CENTER); // Centrar el texto
+                          mensaje.setPreferredSize(new Dimension(150, 50)); // Tamaño ajustado del mensaje
+
+                          // Crear el JOptionPane personalizado
+                          JOptionPane optionPane = new JOptionPane(
+                              mensaje,                         // Mensaje con el tamaño ajustado
+                              JOptionPane.INFORMATION_MESSAGE, // Tipo de mensaje
+                              JOptionPane.DEFAULT_OPTION,      // Sin botones predeterminados
+                              null,                            // Sin icono personalizado
+                              new Object[] {},                 // Sin botones
+                              null                             // Sin valor inicial
+                          );
+
+                          // Crear el JDialog basado en el JOptionPane
+                          JDialog dialog = optionPane.createDialog(null, ""); // Sin título
+                          dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+                          // Ajustar el tamaño del diálogo
+                          dialog.setSize(200, 100); // Establecer el tamaño del cuadro de diálogo (ancho x alto)
+                          dialog.setLocationRelativeTo(null); // Centrar en la pantalla
+
+                          // Configurar un temporizador para cerrarlo automáticamente después de 2 segundos
+                          Timer timer = new Timer(2000, e -> dialog.dispose());
+                          timer.setRepeats(false);
+                          timer.start();
+
+                          dialog.setVisible(true); // Mostrar el cuadro de diálogo
+
+                       FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
+                       formularioPrincipal.setVisible(true);
+                       dispose();  // Cierra el formulario de login
+
                         } else {
                             // Si la validación falla, mostrar un mensaje de error
                             JOptionPane.showMessageDialog(null, 
