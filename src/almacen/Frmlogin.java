@@ -198,6 +198,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                             String rol = rs.getString("rol");
 
                             // Si el usuario y la contraseña son correctos, abrir el formulario principal
+                            JOptionPane.showMessageDialog(null,"Datos insertados correctamente","",JOptionPane.INFORMATION_MESSAGE);
                             FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
                             formularioPrincipal.setVisible(true);
                             dispose();  // Cierra el formulario de login

@@ -72,23 +72,23 @@ Connection cn=con.conectar();
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNombre.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 246, -1));
 
-        txtApellidoP.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtApellidoP.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtApellidoP.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Apellido Paterno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtApellidoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 246, -1));
 
-        txtApellidoM.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtApellidoM.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtApellidoM.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Apellido Materno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtApellidoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 246, -1));
 
-        txtEmail.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 246, -1));
 
-        txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 246, -1));
 
