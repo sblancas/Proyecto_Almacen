@@ -61,7 +61,6 @@ Connection cn=con.conectar();
         txtApellidoM = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        btnLimpiar = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -92,15 +91,6 @@ Connection cn=con.conectar();
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 246, -1));
 
-        btnLimpiar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnLimpiar.setText("LIMPIAR");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 177, -1));
-
         btnUsuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnUsuario.setText("GUARDAR USUARIO");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +98,7 @@ Connection cn=con.conectar();
                 btnUsuarioActionPerformed(evt);
             }
         });
-        jPanel3.add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 177, -1));
+        jPanel3.add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 177, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -197,17 +187,8 @@ Connection cn=con.conectar();
         }
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtNombre.setText("");
-        txtApellidoP.setText("");
-        txtApellidoM.setText("");
-        txtEmail.setText("");
-        txtPassword.setText("");
-    }//GEN-LAST:event_btnLimpiarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
