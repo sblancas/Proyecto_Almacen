@@ -33,6 +33,9 @@ ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
 
+// Declarar una variable para mantener el total acumulado
+private double totalAcumulado = 0.0;
+
   public VentaProductos(JFrame parent) {
     timer.start();
     initComponents();
@@ -126,7 +129,7 @@ Connection cn=con.conectar();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
-        txtTotalPagar = new javax.swing.JTextField();
+        lblTotal = new javax.swing.JTextField();
         btnRegistrarVenta = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -262,8 +265,12 @@ Connection cn=con.conectar();
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel10.setText("Cambio:");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
+
+        jTextField6.setEditable(false);
         jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 80, -1));
-        jPanel3.add(txtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 113, 20));
+
+        lblTotal.setEditable(false);
+        jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 113, 20));
 
         btnRegistrarVenta.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         btnRegistrarVenta.setText("Registrar venta");
@@ -318,8 +325,7 @@ public void cargarDatosProductoSeleccionado() {
     }
 }
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-// Obtener los datos del producto seleccionado
-
+  // Obtener los datos del producto seleccionado
     String clave = txtClave.getText().trim();
     String nombre = txtNombrep.getText().trim();
     String precioStr = txtPreciop.getText().trim();
@@ -331,15 +337,18 @@ public void cargarDatosProductoSeleccionado() {
         JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    int  cantidadDisponible = Integer.parseInt( txtCantidadp.getText().toString());
-    int cantidadIngresada= Integer.parseInt(cantidadStr);
-    
-    if(cantidadIngresada > cantidadDisponible){
-        
-JOptionPane.showMessageDialog(this, 
-    "No contamos con las piezas solicitadas. La cantidad máxima es " + cantidadDisponible + ".","Error",JOptionPane.ERROR_MESSAGE);        
-return;
+
+    int cantidadDisponible = Integer.parseInt(txtCantidadp.getText().trim());
+    int cantidadIngresada = Integer.parseInt(cantidadStr);
+
+    if (cantidadIngresada > cantidadDisponible) {
+        JOptionPane.showMessageDialog(this, 
+            "No contamos con las piezas solicitadas. La cantidad máxima es " + cantidadDisponible + ".", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
     }
+
     // Validar que el precio y la cantidad sean números válidos
     double precio;
     int cantidad;
@@ -354,12 +363,17 @@ return;
     // Calcular el total por el producto
     double total = precio * cantidad;
 
+    // Insertar el registro al inicio de la tabla
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion});
+    model.insertRow(0, new Object[]{clave, nombre, cantidad, total, descripcion});
+
+    // Actualizar el total acumulado
+    totalAcumulado += total;
+    lblTotal.setText(String.format("$%.2f", totalAcumulado));
 
     // Limpiar los campos después de agregar
     limpiarCampos();
-}                                         
+}                                       
 
 private void limpiarCampos() {
     txtClave.setText("");
@@ -372,7 +386,12 @@ private void limpiarCampos() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-model.removeRow(jTable1.getSelectedRow());
+
+if(jTable1.getSelectedRow()== -1){
+    JOptionPane.showMessageDialog(null, "No se a seleccionado un registro de la tabla","ERROR AL ELIMINAR REGISTRO",JOptionPane.ERROR_MESSAGE);
+}else{
+    model.removeRow(jTable1.getSelectedRow());
+}
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -423,11 +442,11 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField lblTotal;
     private javax.swing.JTextField txtCantidadp;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombrep;
     private javax.swing.JTextField txtPreciop;
-    private javax.swing.JTextField txtTotalPagar;
     // End of variables declaration//GEN-END:variables
 }

@@ -225,7 +225,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                           dialog.setLocationRelativeTo(null); // Centrar en la pantalla
 
                           // Configurar un temporizador para cerrarlo automáticamente después de 2 segundos
-                          Timer timer = new Timer(2000, e -> dialog.dispose());
+                          Timer timer = new Timer(700, e -> dialog.dispose());
                           timer.setRepeats(false);
                           timer.start();
 
