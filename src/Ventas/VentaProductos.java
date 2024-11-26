@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -57,17 +56,6 @@ Connection cn=con.conectar();
             parent.setVisible(true);
         }
     });
-
-    // Método de inicialización para la tabla
-    DefaultTableModel model = new DefaultTableModel(
-        new Object[]{"Clave", "Nombre", "Cantidad", "Precio", "Descripción", "Eliminar"},
-        0 // Este 0 indica que inicialmente no hay filas
-    );
-    jTable1.setModel(model);
-
-    // Configuración del editor de botón en la columna "Eliminar"
-    jTable1.getColumnModel().getColumn(5).setCellEditor(new BotonEditar(new JCheckBox(), model));
-    jTable1.getColumnModel().getColumn(5).setCellRenderer(new RenderizarBoton());
 }
 
    public void cargarProductos() {
@@ -130,6 +118,7 @@ Connection cn=con.conectar();
         txtDescripcion = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -223,27 +212,36 @@ Connection cn=con.conectar();
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, 20));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, 20));
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, -1));
+
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Clave", "Nombre", "Cantidad", "Precio", "Descripcion", "Eliminar"
+                "Clave", "Nombre", "Cantidad", "Precio", "Descripcion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -356,9 +354,8 @@ return;
     // Calcular el total por el producto
     double total = precio * cantidad;
 
-    // Agregar los datos a la tabla, con un valor "X" en la columna de eliminar
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion, "Eliminar"});
+    model.addRow(new Object[]{clave, nombre, cantidad, total, descripcion});
 
     // Limpiar los campos después de agregar
     limpiarCampos();
@@ -372,6 +369,12 @@ private void limpiarCampos() {
     txtCantidadp.setText("");
     jSpinner1.setValue(1);
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+model.removeRow(jTable1.getSelectedRow());
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
      
@@ -401,6 +404,7 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JButton btnRegistrarVenta;
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
