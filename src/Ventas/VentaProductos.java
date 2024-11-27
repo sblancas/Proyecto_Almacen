@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -62,42 +63,35 @@ private double totalAcumulado = 0.0;
 }
 
    public void cargarProductos() {
-    // Asegúrate de que la conexión esté establecida
-    if (cn == null) {
-        System.out.println("La conexión a la base de datos no está establecida.");
-        return;
-    }
+   // Recargar los productos disponibles en el ComboBox
+    DefaultComboBoxModel modeloComboBox = (DefaultComboBoxModel) comboProductos.getModel();
+    modeloComboBox.removeAllElements();
 
+    // Cargar nuevamente los productos que tienen cantidad > 0
+    String query = "SELECT * FROM producto WHERE cantidad > 0";
     try {
-        // Consulta para obtener los productos
-        String consulta = "SELECT nombre FROM producto";
-        PreparedStatement ps = cn.prepareStatement(consulta); 
+        PreparedStatement ps = cn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         
-        // Limpiar el ComboBox antes de llenarlo
-        comboProductos.removeAllItems();
-        
-        
-        
-        // Agregar el placeholder como primer elemento
-        comboProductos.addItem("Selecciona un producto");
-        // Llenar el ComboBox con los resultados
         while (rs.next()) {
-            String producto = rs.getString("nombre");
-            comboProductos.addItem(producto);  // Añadir el nombre del producto
+            String nombreProducto = rs.getString("nombre");
+            modeloComboBox.addElement(nombreProducto);  // Agregar producto al ComboBox
         }
-
+// Seleccionar el primer elemento (solo si el ComboBox no está vacío)
+        if (comboProductos.getItemCount() > 0) {
+            comboProductos.setSelectedIndex(0); // Selecciona el primer producto automáticamente
+            cargarDatosProductoSeleccionado();  // Cargar los datos para el primer producto
+        }
         // Aplicar el autocompletado al JComboBox
         AutoCompleteDecorator.decorate(comboProductos);  // Esto habilita el autocompletado
 
         // Cerrar recursos
-        rs.close();
+         rs.close();
         ps.close();
-        
-    } catch (Exception e) {
-        // Manejo de errores, imprimiendo la excepción
-        e.printStackTrace();  // Esto te ayudará a ver si algo está fallando
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al recargar los productos.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
 }
  
     @SuppressWarnings("unchecked")
@@ -132,7 +126,7 @@ private double totalAcumulado = 0.0;
         lblTotal = new javax.swing.JTextField();
         btnRegistrarVenta = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jEfectivo = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -215,7 +209,7 @@ private double totalAcumulado = 0.0;
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, 20));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, 30));
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, -1));
@@ -229,7 +223,7 @@ private double totalAcumulado = 0.0;
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -274,12 +268,17 @@ private double totalAcumulado = 0.0;
 
         btnRegistrarVenta.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         btnRegistrarVenta.setText("Registrar venta");
+        btnRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarVentaActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 109, 150, 50));
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         jLabel15.setText("Efectivo:");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 80, -1));
+        jPanel3.add(jEfectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 80, -1));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 460, 180));
 
@@ -301,7 +300,7 @@ private double totalAcumulado = 0.0;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void cargarDatosProductoSeleccionado() {
-    try {
+      try {
         String item = comboProductos.getSelectedItem().toString().trim();
         String query = "SELECT * FROM producto WHERE nombre=?";
         PreparedStatement ps = cn.prepareStatement(query);
@@ -325,7 +324,10 @@ public void cargarDatosProductoSeleccionado() {
     }
 }
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-  // Obtener los datos del producto seleccionado
+// Guardar el producto seleccionado antes de cualquier cambio
+    String productoSeleccionado = comboProductos.getSelectedItem().toString();
+
+    // Obtener los datos del producto seleccionado
     String clave = txtClave.getText().trim();
     String nombre = txtNombrep.getText().trim();
     String precioStr = txtPreciop.getText().trim();
@@ -338,14 +340,14 @@ public void cargarDatosProductoSeleccionado() {
         return;
     }
 
+    // Validar la cantidad disponible
     int cantidadDisponible = Integer.parseInt(txtCantidadp.getText().trim());
     int cantidadIngresada = Integer.parseInt(cantidadStr);
 
     if (cantidadIngresada > cantidadDisponible) {
         JOptionPane.showMessageDialog(this, 
             "No contamos con las piezas solicitadas. La cantidad máxima es " + cantidadDisponible + ".", 
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
+            "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
@@ -353,7 +355,7 @@ public void cargarDatosProductoSeleccionado() {
     double precio;
     int cantidad;
     try {
-        precio = formatearPrecio(precioStr);
+        precio = formatearPrecio(precioStr); // Convierte el precio a formato decimal usando tu método
         cantidad = Integer.parseInt(cantidadStr);
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "El precio y la cantidad deben ser valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -366,34 +368,183 @@ public void cargarDatosProductoSeleccionado() {
     // Insertar el registro al inicio de la tabla
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
     model.insertRow(0, new Object[]{clave, nombre, cantidad, total, descripcion});
-
+    
     // Actualizar el total acumulado
     totalAcumulado += total;
     lblTotal.setText(String.format("$%.2f", totalAcumulado));
 
-    // Limpiar los campos después de agregar
-    limpiarCampos();
-}                                       
+    // Reducir la cantidad del producto en la base de datos
+    reducirCantidadProducto(clave, cantidad);
 
+    // Limpiar los campos después de agregar el producto
+    limpiarCampos();
+
+    // Cargar nuevamente los datos del producto seleccionado
+    cargarDatosProductoSeleccionado();  // Este método recarga la información con la nueva cantidad
+
+    // Restaurar la selección del ComboBox
+    comboProductos.setSelectedItem(productoSeleccionado);
+    }
+    
+    private void reducirCantidadProducto(String clave, int cantidad) {
+     try {
+        // Reducir la cantidad en la base de datos
+        String query = "UPDATE producto SET cantidad = cantidad - ? WHERE id = ?";
+        PreparedStatement ps = cn.prepareStatement(query);
+        ps.setInt(1, cantidad);  // Restamos la cantidad del producto
+        ps.setString(2, clave);   // Filtramos por la clave del producto
+        int rowsAffected = ps.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Cantidad actualizada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la cantidad en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        ps.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al reducir la cantidad del producto.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+   
+
+// Método auxiliar para limpiar los campos de entrada
 private void limpiarCampos() {
     txtClave.setText("");
     txtNombrep.setText("");
     txtPreciop.setText("");
-    txtDescripcion.setText("");
     txtCantidadp.setText("");
-    jSpinner1.setValue(1);
+    txtDescripcion.setText("");
+    jSpinner1.setValue(1);  // Resetear el spinner
+    comboProductos.setSelectedIndex(0);  // Resetear el combo
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  // Obtener la fila seleccionada en la tabla
+    int filaSeleccionada = jTable1.getSelectedRow();
+
+    // Verificar si se ha seleccionado una fila válida
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, selecciona un producto para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Obtener el valor de la clave del producto que se va a eliminar
+    String clave = (String) jTable1.getValueAt(filaSeleccionada, 0);  // Asumiendo que la clave está en la primera columna
+
+    // Obtener la cantidad del producto que se va a eliminar
+    int cantidad = (int) jTable1.getValueAt(filaSeleccionada, 2);  // Asumiendo que la cantidad está en la tercera columna
+
+    // Obtener el total del producto que se va a eliminar
+    double totalEliminado = (double) jTable1.getValueAt(filaSeleccionada, 3);  // Asumiendo que el total está en la cuarta columna
+
+    // Eliminar el producto de la tabla
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.removeRow(filaSeleccionada);
 
-if(jTable1.getSelectedRow()== -1){
-    JOptionPane.showMessageDialog(null, "No se a seleccionado un registro de la tabla","ERROR AL ELIMINAR REGISTRO",JOptionPane.ERROR_MESSAGE);
-}else{
-    model.removeRow(jTable1.getSelectedRow());
+    // Actualizar la cantidad del producto en la base de datos
+    incrementarCantidadEnBaseDeDatos(clave, cantidad);
+
+    // Actualizar el total acumulado
+    totalAcumulado -= totalEliminado;  // Restamos el total eliminado
+    lblTotal.setText(String.format("$%.2f", totalAcumulado));
+
+    // Recargar el producto con la nueva cantidad
+    recargarProductoSeleccionado(clave);  // Llamamos al método para actualizar el producto con la cantidad actualizada
+
+    // Si después de eliminar la fila, la tabla ya no tiene productos, mostramos un mensaje adecuado
+    if (jTable1.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "No hay productos en la tabla.", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void recargarProductoSeleccionado(String clave) {
+    // Cargar los datos del producto con la nueva cantidad desde la base de datos
+    try {
+        String query = "SELECT * FROM producto WHERE id=?";
+        PreparedStatement ps = cn.prepareStatement(query);
+        ps.setString(1, clave);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            // Obtener la nueva cantidad después de la eliminación
+            int nuevaCantidad = rs.getInt("cantidad");
+            
+            // Actualizar los campos de texto con la nueva cantidad y la información del producto
+            txtCantidadp.setText(String.valueOf(nuevaCantidad));
+            // También puedes actualizar otros campos de texto si es necesario
+            txtNombrep.setText(rs.getString("nombre"));
+            txtPreciop.setText(" $ " + rs.getString("precio") + " MXN ");
+            txtDescripcion.setText(rs.getString("descripcion"));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros para este producto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        rs.close();
+        ps.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al recargar los datos del producto", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
+    private void incrementarCantidadEnBaseDeDatos(String clave, int cantidad) {
+    // Consulta para actualizar la cantidad en la base de datos
+    String updateQuery = "UPDATE producto SET cantidad = cantidad + ? WHERE id = ?";
+    try {
+        // Preparar la consulta con parámetros
+        PreparedStatement ps = cn.prepareStatement(updateQuery);
+        ps.setInt(1, cantidad);  // Sumamos la cantidad eliminada
+        ps.setString(2, clave);   // Filtramos por la clave del producto
+        
+        // Ejecutar la consulta
+        int rowsAffected = ps.executeUpdate();
+        
+        if (rowsAffected > 0) {
+            System.out.println("Cantidad actualizada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar la cantidad del producto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        ps.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar la cantidad en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
+  try {
+        // Obtener el texto del lblTotal y eliminar el símbolo de moneda
+        String totalText = lblTotal.getText().replace("$", "").trim();
+        double total = formatearPrecio(totalText);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        // Obtener el efectivo desde jTextField1
+        double efectivo = Double.parseDouble(jEfectivo.getText().trim());
+
+        // Validar que el efectivo sea suficiente
+        if (efectivo < total) {
+            JOptionPane.showMessageDialog(this, "El efectivo ingresado no es suficiente para cubrir el total.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Calcular el cambio
+        double cambio = efectivo - total;
+
+        // Mostrar el cambio en jTextField6
+        jTextField6.setText(String.format("%.2f", cambio));
+
+        // Confirmar la venta
+        JOptionPane.showMessageDialog(this, "¡Venta registrada exitosamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        // Limpiar la tabla
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Elimina todas las filas de la tabla
+
+        // Limpiar otros campos de la interfaz
+        lblTotal.setText("$0.00");
+        jEfectivo.setText("");
+        jTextField6.setText("");
+
+    } catch (NumberFormatException e) {
+        // Manejar error si el formato de entrada no es válido
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
     
      
@@ -424,6 +575,7 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;
     private javax.swing.JButton jButton1;
+    private javax.swing.JTextField jEfectivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -440,7 +592,6 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField lblTotal;
     private javax.swing.JTextField txtCantidadp;
