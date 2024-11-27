@@ -386,6 +386,29 @@ public void cargarDatosProductoSeleccionado() {
     comboProductos.setSelectedItem(productoSeleccionado);
     }
     
+    public int obtenerCantidadDeInventario(String clave) {
+    int cantidad = 0; // Inicializamos la cantidad como 0 por defecto
+    String query = "SELECT cantidad FROM producto WHERE id = ?";
+    
+    try {
+        PreparedStatement ps = cn.prepareStatement(query); // Usamos la conexión existente
+        ps.setString(1, clave); // Pasamos la clave como parámetro
+        ResultSet rs = ps.executeQuery(); // Ejecutamos la consulta
+        
+        if (rs.next()) {
+            cantidad = rs.getInt("cantidad"); // Obtenemos la cantidad si existe el registro
+        }
+        
+        rs.close(); // Cerramos el ResultSet
+        ps.close(); // Cerramos el PreparedStatement
+    } catch (SQLException e) {
+        e.printStackTrace(); // Manejo básico de errores
+        JOptionPane.showMessageDialog(null, "Error al obtener la cantidad del producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return cantidad; // Devolvemos la cantidad obtenida
+}
+
     private void reducirCantidadProducto(String clave, int cantidad) {
      try {
         // Reducir la cantidad en la base de datos
@@ -486,6 +509,19 @@ private void limpiarCampos() {
     }
 }
     private void incrementarCantidadEnBaseDeDatos(String clave, int cantidad) {
+        
+         if (clave == null || clave.isEmpty()) {
+        System.err.println("Clave nula o vacía, no se puede actualizar el inventario.");
+        return;
+    }
+
+    if (cantidad <= 0) {
+        System.err.println("Cantidad inválida (" + cantidad + "), no se actualiza el inventario.");
+        return;
+    }
+
+    // Lógica para actualizar la base de datos
+    System.out.println("Inventario actualizado: Clave=" + clave + ", Cantidad=" + cantidad);
     // Consulta para actualizar la cantidad en la base de datos
     String updateQuery = "UPDATE producto SET cantidad = cantidad + ? WHERE id = ?";
     try {
@@ -508,46 +544,110 @@ private void limpiarCampos() {
     }
 }
     private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
-  try {
-        // Obtener el texto del lblTotal y eliminar el símbolo de moneda
+         try {
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas registrar la venta?",
+                "Confirmar Venta", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.NO_OPTION) {
+            // Preguntar si desea agregar otro producto
+            int opcion = JOptionPane.showConfirmDialog(this,
+                    "¿Deseas agregar otro producto?",
+                    "Agregar Producto", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // El usuario desea agregar otro producto
+                JOptionPane.showMessageDialog(this,
+                        "Puedes agregar otro producto.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+                return; // No limpiar nada
+            }
+
+            // El usuario no desea agregar más productos, cancelar la venta
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            int rowCount = model.getRowCount();
+
+            // Recorrer la tabla para actualizar el inventario
+            for (int i = 0; i < rowCount; i++) {
+                Object claveObj = model.getValueAt(i, 0); // Obtener la clave del producto
+    Object cantidadObj = model.getValueAt(i, 2); // Obtener la cantidad comprada
+
+    // Validar si la fila está vacía o incompleta
+    if (claveObj == null || cantidadObj == null) {
+        System.out.println("Fila " + i + " está incompleta o vacía. Saltando...");
+        continue; // Saltar filas vacías
+    }
+
+    // Obtener la clave y la cantidad asegurándonos de que son válidas
+    String clave = claveObj.toString();
+    int cantidad;
+    try {
+        cantidad = Integer.parseInt(cantidadObj.toString());
+    } catch (NumberFormatException e) {
+        System.out.println("Cantidad inválida en fila " + i + ": " + cantidadObj);
+        continue; // Saltar filas con datos inválidos
+    }
+
+    // Devolver las cantidades al inventario
+    incrementarCantidadEnBaseDeDatos(clave, cantidad);
+
+    // Reflejar la cantidad actualizada en la tabla
+    int cantidadActual = obtenerCantidadDeInventario(clave);
+    model.setValueAt(cantidadActual, i, 3); // Suponiendo que la columna 3 es la cantidad en inventario
+
+    // Depuración: Confirmar los valores procesados
+    System.out.println("Fila procesada correctamente. Clave: " + clave + ", Cantidad devuelta: " + cantidad);
+}
+
+            
+            // Limpiar la tabla y campos de la interfaz
+            model.setRowCount(0); // Limpiar la tabla
+            lblTotal.setText("$0.00");
+            jEfectivo.setText("");
+            jTextField6.setText("");
+
+            JOptionPane.showMessageDialog(this,
+                    "Venta cancelada, inventario actualizado correctamente.",
+                    "Cancelación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+
+            return; // Salir de la operación
+        }
+
+        // Código para registrar la venta
         String totalText = lblTotal.getText().replace("$", "").trim();
         double total = formatearPrecio(totalText);
 
-        // Obtener el efectivo desde jTextField1
         double efectivo = Double.parseDouble(jEfectivo.getText().trim());
 
-        // Validar que el efectivo sea suficiente
         if (efectivo < total) {
-            JOptionPane.showMessageDialog(this, "El efectivo ingresado no es suficiente para cubrir el total.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "El efectivo ingresado no es suficiente para cubrir el total.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Calcular el cambio
         double cambio = efectivo - total;
-
-        // Mostrar el cambio en jTextField6
         jTextField6.setText(String.format("%.2f", cambio));
 
-        // Confirmar la venta
-        JOptionPane.showMessageDialog(this, "¡Venta registrada exitosamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                "¡Venta registrada exitosamente!",
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        // Limpiar la tabla
+        // Limpiar la tabla después de registrar la venta
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Elimina todas las filas de la tabla
+        model.setRowCount(0);
 
-        // Limpiar otros campos de la interfaz
         lblTotal.setText("$0.00");
         jEfectivo.setText("");
         jTextField6.setText("");
 
     } catch (NumberFormatException e) {
-        // Manejar error si el formato de entrada no es válido
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                "Por favor, ingrese valores numéricos válidos.",
+                "Error", JOptionPane.ERROR_MESSAGE);
     }
-    }//GEN-LAST:event_btnRegistrarVentaActionPerformed
+       }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
-    
-     
     
     Timer timer = new Timer(100, new ActionListener() {
         @Override
