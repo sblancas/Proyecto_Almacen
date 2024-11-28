@@ -346,6 +346,7 @@ Connection cn=con.conectar();
 
             // Inhabilitar el campo clave para que no se pueda modificar
             txtClave.setEnabled(false);
+            btnAgregar.setEnabled(false);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontraron registros para mostrar", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -438,6 +439,7 @@ Connection cn=con.conectar();
                 
                 // Habilitar el campo Clave
                 txtClave.setEnabled(true);
+                btnAgregar.setEnabled(true);
 
                 // Recargar datos
                 cargarProductos();
@@ -547,7 +549,7 @@ Connection cn=con.conectar();
                 // Habilitar el campo Clave
                 txtClave.setEnabled(true);
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seleccione un registro para eliminar.", "Información", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar eliminar el registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
