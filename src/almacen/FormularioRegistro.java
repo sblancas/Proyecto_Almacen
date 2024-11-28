@@ -32,8 +32,8 @@ Connection cn=con.conectar();
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("FORMULARIO REGISTRO");
+        this.setResizable(false); // Para no permitir reajuste
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
-        this.setResizable(false);
         setLocationRelativeTo(null);
 
         // Añadir WindowListener para manejar el evento de cierre

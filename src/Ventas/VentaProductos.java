@@ -41,9 +41,9 @@ private double totalAcumulado = 0.0;
     timer.start();
     initComponents();
     this.setLocationRelativeTo(null);
-       this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
-    setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
+    this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
     this.setResizable(false); // Para no permitir reajuste
+    setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
     cargarProductos(); // Carga productos al iniciar form en la tabla
 
     comboProductos.addItemListener(e -> {

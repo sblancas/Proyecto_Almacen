@@ -43,7 +43,7 @@ Connection conexionn=conexion.conectar();
     this.setLocationRelativeTo(null);
     this.setTitle("LOGIN");
     this.setResizable(false);
-            progressBar.setVisible(false);
+    progressBar.setVisible(false);
 
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // Esto hace que solo se cierre la ventana de login
  // Cargar y escalar la imagen

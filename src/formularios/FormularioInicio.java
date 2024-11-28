@@ -29,6 +29,8 @@ public class FormularioInicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(720, 560);
+        this.setTitle("FORMULARIO INICIO");
+        this.setResizable(false); // Para no permitir reajuste
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
 
