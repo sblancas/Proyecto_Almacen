@@ -64,7 +64,11 @@ private double totalAcumulado = 0.0;
 }
 
   private void reiniciarVenta() {
-    // Reinicia los campos y valores relacionados con la venta
+  
+      if (Integer.parseInt(txtCantidadp.getText())==0) {
+          cargarProductos();
+      }
+      // Reinicia los campos y valores relacionados con la venta
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
     model.setRowCount(0); // Vaciar la tabla
 
@@ -397,6 +401,7 @@ public void cargarDatosProductoSeleccionado() {
     // Restaurar la selección del ComboBox
     comboProductos.setSelectedItem(productoSeleccionado);
     }
+    
     
     public int obtenerCantidadDeInventario(String clave) {
     int cantidad = 0; // Inicializamos la cantidad como 0 por defecto
