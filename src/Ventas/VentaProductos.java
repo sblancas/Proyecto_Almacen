@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,15 +35,18 @@ public class VentaProductos extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
 //Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
-
+String usuarioVenta="";
 // Declarar una variable para mantener el total acumulado
 private double totalAcumulado = 0.0;
+private int cantidadAcumulado = 0;
+
 
   public VentaProductos(JFrame parent,String rol, String usuario) {
     timer.start();
     initComponents();
     this.setLocationRelativeTo(null);
     this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
+    usuarioVenta=usuario;
     this.setResizable(false); // Para no permitir reajuste
     setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
     cargarProductos(); // Carga productos al iniciar form en la tabla
@@ -143,6 +148,8 @@ private double totalAcumulado = 0.0;
         btnRegistrarVenta = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jEfectivo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cantidadProductos = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +287,7 @@ private double totalAcumulado = 0.0;
         jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 80, -1));
 
         lblTotal.setEditable(false);
-        jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 113, 20));
+        jPanel3.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 113, 20));
 
         btnRegistrarVenta.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         btnRegistrarVenta.setText("Registrar venta");
@@ -295,6 +302,13 @@ private double totalAcumulado = 0.0;
         jLabel15.setText("Efectivo:");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
         jPanel3.add(jEfectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 80, -1));
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        jLabel11.setText("Cantidad Productos");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 20));
+
+        cantidadProductos.setEditable(false);
+        jPanel3.add(cantidadProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 113, 20));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 460, 180));
 
@@ -387,7 +401,9 @@ public void cargarDatosProductoSeleccionado() {
     
     // Actualizar el total acumulado
     totalAcumulado += total;
+    cantidadAcumulado +=cantidad;
     lblTotal.setText(String.format("$%.2f", totalAcumulado));
+    cantidadProductos.setText(String.valueOf(cantidadAcumulado));
 
     // Reducir la cantidad del producto en la base de datos
     reducirCantidadProducto(clave, cantidad);
@@ -487,7 +503,9 @@ private void limpiarCampos() {
 
     // Actualizar el total acumulado
     totalAcumulado -= totalEliminado;  // Restamos el total eliminado
+    cantidadAcumulado-=cantidad;
     lblTotal.setText(String.format("$%.2f", totalAcumulado));
+    cantidadProductos.setText(String.valueOf(cantidadAcumulado));
 
     // Recargar el producto con la nueva cantidad
     recargarProductoSeleccionado(clave);  // Llamamos al método para actualizar el producto con la cantidad actualizada
@@ -672,6 +690,7 @@ private void limpiarCampos() {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
 
         double cambio = efectivo - total;
         jTextField6.setText(String.format("%.2f", cambio));
@@ -679,6 +698,7 @@ private void limpiarCampos() {
         JOptionPane.showMessageDialog(this,
                 "¡Venta registrada exitosamente!",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        insertarVenta(cantidadAcumulado,total,hora.getText(),usuarioVenta);
 
         // Reiniciar venta al registrar
         reiniciarVenta();
@@ -691,7 +711,20 @@ private void limpiarCampos() {
 
        }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
-    
+    public void insertarVenta(int cantidad,double total,String fecha, String usuario) {
+
+        try {
+            String query = "INSERT INTO ventas(cantidad_productos,total_compra,fecha_compra,usuario)values('" + cantidad + "','"+total+"','" + fecha + "','" + usuario + "')";
+            PreparedStatement ps;
+            ps = cn.prepareStatement(query);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+               // JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR AL INSERTAR EN BASE DE DATOS","",JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
     Timer timer = new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -715,12 +748,14 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegistrarVenta;
+    private javax.swing.JTextField cantidadProductos;
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField jEfectivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
