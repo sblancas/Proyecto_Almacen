@@ -30,15 +30,13 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setSize(720, 560);
-        setTitle( "Bienvenido " + this.rol+": "+this.usuario+ "!");
-        this.setResizable(false); // Para no permitir reajuste
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
        // Mostrar el nombre del usuario en un JLabel u otro componente adignamos rol a variable
        this.usuario=usuario;
        this.rol=rol;
-       
-
+       setTitle( "Bienvenido " + this.rol+": "+this.usuario+ "!");
+       this.setResizable(false);
 
     }
 
