@@ -503,7 +503,7 @@ private void limpiarCampos() {
         String query = "SELECT * FROM producto WHERE id=?";
         PreparedStatement ps = cn.prepareStatement(query);
         ps.setString(1, clave);
-        ResultSet rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery(); 
 
         if (rs.next()) {
             // Obtener la nueva cantidad después de la eliminación
