@@ -124,7 +124,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    VentaProductos venta = new VentaProductos(this);
+    VentaProductos venta = new VentaProductos(this,rol,usuario);
     this.setVisible(false);
     venta.setVisible(true);
     venta.setLocationRelativeTo(null);        

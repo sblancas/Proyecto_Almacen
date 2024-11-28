@@ -37,10 +37,11 @@ Connection cn=con.conectar();
 // Declarar una variable para mantener el total acumulado
 private double totalAcumulado = 0.0;
 
-  public VentaProductos(JFrame parent) {
+  public VentaProductos(JFrame parent,String rol, String usuario) {
     timer.start();
     initComponents();
     this.setLocationRelativeTo(null);
+       this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
     setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
     this.setResizable(false); // Para no permitir reajuste
     cargarProductos(); // Carga productos al iniciar form en la tabla
@@ -62,6 +63,17 @@ private double totalAcumulado = 0.0;
     });
 }
 
+  private void reiniciarVenta() {
+    // Reinicia los campos y valores relacionados con la venta
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0); // Vaciar la tabla
+
+    totalAcumulado = 0.0; // Reinicia el total acumulado
+    lblTotal.setText("$0.00"); // Actualiza el label del total acumulado
+
+    jEfectivo.setText(""); // Limpia el campo de efectivo ingresado
+    jTextField6.setText(""); // Limpia el campo de cambio
+}
    public void cargarProductos() {
    // Recargar los productos disponibles en el ComboBox
     DefaultComboBoxModel modeloComboBox = (DefaultComboBoxModel) comboProductos.getModel();
@@ -510,7 +522,7 @@ private void limpiarCampos() {
 }
     private void incrementarCantidadEnBaseDeDatos(String clave, int cantidad) {
         
-         if (clave == null || clave.isEmpty()) {
+     if (clave == null || clave.isEmpty()) {
         System.err.println("Clave nula o vacía, no se puede actualizar el inventario.");
         return;
     }
@@ -520,31 +532,83 @@ private void limpiarCampos() {
         return;
     }
 
-    // Lógica para actualizar la base de datos
-    System.out.println("Inventario actualizado: Clave=" + clave + ", Cantidad=" + cantidad);
     // Consulta para actualizar la cantidad en la base de datos
     String updateQuery = "UPDATE producto SET cantidad = cantidad + ? WHERE id = ?";
+
     try {
+        // Iniciar la transacción
+        cn.setAutoCommit(false);
+
         // Preparar la consulta con parámetros
-        PreparedStatement ps = cn.prepareStatement(updateQuery);
-        ps.setInt(1, cantidad);  // Sumamos la cantidad eliminada
-        ps.setString(2, clave);   // Filtramos por la clave del producto
-        
-        // Ejecutar la consulta
-        int rowsAffected = ps.executeUpdate();
-        
-        if (rowsAffected > 0) {
-            System.out.println("Cantidad actualizada correctamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al actualizar la cantidad del producto.", "Error", JOptionPane.ERROR_MESSAGE);
+        try (PreparedStatement ps = cn.prepareStatement(updateQuery)) {
+            ps.setInt(1, cantidad);  // Incrementar la cantidad
+            ps.setString(2, clave);  // Filtrar por clave del producto
+
+            // Ejecutar la consulta
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Cantidad actualizada correctamente: Clave=" + clave + ", Cantidad=" + cantidad);
+            } else {
+                System.err.println("Error: No se encontró un producto con la clave especificada: " + clave);
+                JOptionPane.showMessageDialog(null,
+                        "No se encontró el producto con clave: " + clave,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
+                // Si el producto no existe, lanzar excepción para forzar rollback
+                throw new SQLException("Producto no encontrado: clave=" + clave);
+            }
         }
-        ps.close();
+
+        // Confirmar la transacción
+        cn.commit();
+        System.out.println("Transacción completada con éxito para la clave: " + clave);
+
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al actualizar la cantidad en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            // Revertir los cambios si ocurre un error
+            cn.rollback();
+            System.err.println("Error en la transacción. Se realizó un rollback.");
+            e.printStackTrace();
+        } catch (SQLException rollbackEx) {
+            System.err.println("Error al intentar realizar el rollback.");
+            rollbackEx.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(null,
+                "Error al actualizar el inventario: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            // Restaurar el estado predeterminado de auto-commit
+            cn.setAutoCommit(true);
+        } catch (SQLException ex) {
+            System.err.println("Error al restaurar el auto-commit.");
+            ex.printStackTrace();
+        }
     }
 }
     private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
-         try {
+ try {
+        // Verificar si el campo de efectivo está vacío
+        if (jEfectivo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, ingrese efectivo antes de registrar la venta.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución
+        }
+
+        // Validar que el efectivo ingresado sea un número válido
+        double efectivo;
+        try {
+            efectivo = Double.parseDouble(jEfectivo.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, ingrese un valor numérico válido para el efectivo.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Detener la ejecución
+        }
+
+        // Confirmar si desea registrar la venta
         int confirmacion = JOptionPane.showConfirmDialog(this,
                 "¿Estás seguro de que deseas registrar la venta?",
                 "Confirmar Venta", JOptionPane.YES_NO_OPTION);
@@ -563,61 +627,39 @@ private void limpiarCampos() {
                 return; // No limpiar nada
             }
 
-            // El usuario no desea agregar más productos, cancelar la venta
+            // Cancelar la venta y devolver los productos al inventario
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             int rowCount = model.getRowCount();
 
-            // Recorrer la tabla para actualizar el inventario
+            // Devolver los productos al inventario
             for (int i = 0; i < rowCount; i++) {
-                Object claveObj = model.getValueAt(i, 0); // Obtener la clave del producto
-    Object cantidadObj = model.getValueAt(i, 2); // Obtener la cantidad comprada
+                Object claveObj = model.getValueAt(i, 0); // Clave del producto
+                Object cantidadObj = model.getValueAt(i, 2); // Cantidad comprada
 
-    // Validar si la fila está vacía o incompleta
-    if (claveObj == null || cantidadObj == null) {
-        System.out.println("Fila " + i + " está incompleta o vacía. Saltando...");
-        continue; // Saltar filas vacías
-    }
+                if (claveObj != null && cantidadObj != null) {
+                    try {
+                        String clave = claveObj.toString();
+                        int cantidad = Integer.parseInt(cantidadObj.toString());
+                        incrementarCantidadEnBaseDeDatos(clave, cantidad); // Actualizar inventario
+                    } catch (NumberFormatException e) {
+                        System.err.println("Datos inválidos en la fila " + i + ": " + e.getMessage());
+                    }
+                }
+            }
 
-    // Obtener la clave y la cantidad asegurándonos de que son válidas
-    String clave = claveObj.toString();
-    int cantidad;
-    try {
-        cantidad = Integer.parseInt(cantidadObj.toString());
-    } catch (NumberFormatException e) {
-        System.out.println("Cantidad inválida en fila " + i + ": " + cantidadObj);
-        continue; // Saltar filas con datos inválidos
-    }
-
-    // Devolver las cantidades al inventario
-    incrementarCantidadEnBaseDeDatos(clave, cantidad);
-
-    // Reflejar la cantidad actualizada en la tabla
-    int cantidadActual = obtenerCantidadDeInventario(clave);
-    model.setValueAt(cantidadActual, i, 3); // Suponiendo que la columna 3 es la cantidad en inventario
-
-    // Depuración: Confirmar los valores procesados
-    System.out.println("Fila procesada correctamente. Clave: " + clave + ", Cantidad devuelta: " + cantidad);
-}
-
-            
-            // Limpiar la tabla y campos de la interfaz
-            model.setRowCount(0); // Limpiar la tabla
-            lblTotal.setText("$0.00");
-            jEfectivo.setText("");
-            jTextField6.setText("");
+            // Reiniciar venta al cancelar
+            reiniciarVenta();
 
             JOptionPane.showMessageDialog(this,
                     "Venta cancelada, inventario actualizado correctamente.",
                     "Cancelación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-
-            return; // Salir de la operación
+            cargarDatosProductoSeleccionado();
+            return;
         }
 
-        // Código para registrar la venta
+        // Registrar la venta
         String totalText = lblTotal.getText().replace("$", "").trim();
         double total = formatearPrecio(totalText);
-
-        double efectivo = Double.parseDouble(jEfectivo.getText().trim());
 
         if (efectivo < total) {
             JOptionPane.showMessageDialog(this,
@@ -633,19 +675,15 @@ private void limpiarCampos() {
                 "¡Venta registrada exitosamente!",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        // Limpiar la tabla después de registrar la venta
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-
-        lblTotal.setText("$0.00");
-        jEfectivo.setText("");
-        jTextField6.setText("");
+        // Reiniciar venta al registrar
+        reiniciarVenta();
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this,
                 "Por favor, ingrese valores numéricos válidos.",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
+
        }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
     
