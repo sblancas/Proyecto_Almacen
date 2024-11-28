@@ -82,6 +82,7 @@ private int cantidadAcumulado = 0;
 
     jEfectivo.setText(""); // Limpia el campo de efectivo ingresado
     jTextField6.setText(""); // Limpia el campo de cambio
+    cantidadProductos.setText("");
 }
    public void cargarProductos() {
    // Recargar los productos disponibles en el ComboBox
@@ -471,6 +472,7 @@ private void limpiarCampos() {
     txtPreciop.setText("");
     txtCantidadp.setText("");
     txtDescripcion.setText("");
+    cantidadProductos.setText("");
     jSpinner1.setValue(1);  // Resetear el spinner
     comboProductos.setSelectedIndex(0);  // Resetear el combo
     }//GEN-LAST:event_btnAgregarActionPerformed
