@@ -472,7 +472,6 @@ private void limpiarCampos() {
     txtPreciop.setText("");
     txtCantidadp.setText("");
     txtDescripcion.setText("");
-    cantidadProductos.setText("");
     jSpinner1.setValue(1);  // Resetear el spinner
     comboProductos.setSelectedIndex(0);  // Resetear el combo
     }//GEN-LAST:event_btnAgregarActionPerformed
