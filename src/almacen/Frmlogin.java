@@ -56,15 +56,15 @@ Connection conexionn=conexion.conectar();
      txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
     public void keyPressed(java.awt.event.KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Si se presiona Enter
-            jButton1.doClick();  // Simula el clic del botón
+            btnIniciarSesion.doClick();  // Simula el clic del botón
         }
     }
 });
 
-jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+jContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
     public void keyPressed(java.awt.event.KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Si se presiona Enter
-            jButton1.doClick();  // Simula el clic del botón
+            btnIniciarSesion.doClick();  // Simula el clic del botón
         }
     }
 });
@@ -84,8 +84,8 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        jContraseña = new javax.swing.JPasswordField();
+        btnIniciarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
@@ -114,29 +114,24 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         jLabel3.setText("USUARIO:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 90, -1));
 
-        jPassword.setBorder(null);
-        jPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+        jContraseña.setBorder(null);
+        jContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPasswordMousePressed(evt);
+                jContraseñaMousePressed(evt);
             }
         });
-        jPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 210, 32));
+        jPanel1.add(jContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 210, 32));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
-        jButton1.setText("INICIAR SESION");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        btnIniciarSesion.setText("INICIAR SESION");
+        btnIniciarSesion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 210, 30));
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 210, 30));
 
         jLabel1.setBackground(new java.awt.Color(255, 204, 204));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -163,9 +158,9 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
    String usuario = txtUsuario.getText();
-    String contrasena = jPassword.getText();
+    String contrasena = jContraseña.getText();
 
     if (!usuario.equals("") && !contrasena.equals("")) {
         // Mostrar la barra de progreso en su ubicación original
@@ -189,7 +184,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                     }
 
                     // Realizar la validación de usuario y contraseña
-                    String consulta = "SELECT rol FROM usuarios WHERE email=? AND pass=?";
+                    String consulta = "SELECT rol FROM usuarios WHERE usuario=? AND pass=?";
                     try (PreparedStatement ps = conexionn.prepareStatement(consulta)) {
                         ps.setString(1, usuario);
                         ps.setString(2, contrasena);
@@ -206,7 +201,7 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
                         } else {
                             // Si la validación falla, mostrar un mensaje de error
                             JOptionPane.showMessageDialog(null, 
-                                "CONTRASEÑA O CORREO ELECTRÓNICO INCORRECTOS", 
+                                "CONTRASEÑA O NOMBRE DE USUARIO INCORRECTO", 
                                 "Error", 
                                 JOptionPane.ERROR_MESSAGE);
                         }
@@ -227,33 +222,29 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         JOptionPane.showMessageDialog(null, 
             "DEBES LLENAR TODOS LOS CAMPOS", 
             "Advertencia", 
-            JOptionPane.WARNING_MESSAGE);
+            JOptionPane.ERROR_MESSAGE);
     }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordActionPerformed
-
-    private void jPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordMousePressed
-        jPassword.setBackground(Color.lightGray);
-    }//GEN-LAST:event_jPasswordMousePressed
+    private void jContraseñaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jContraseñaMousePressed
+        jContraseña.setBackground(Color.lightGray);
+    }//GEN-LAST:event_jContraseñaMousePressed
 
     private void txtUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMousePressed
         txtUsuario.setBackground(Color.lightGray);
     }//GEN-LAST:event_txtUsuarioMousePressed
        
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JPasswordField jContraseña;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPassword;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

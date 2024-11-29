@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class FormularioRegistro extends javax.swing.JDialog {
 ConexionMysql con =new ConexionMysql();
-//Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
+//Creando un objeto en linea 24 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
 
    
@@ -48,7 +48,7 @@ Connection cn=con.conectar();
         //para validar usamos un listener
             agregarValidacionSoloLetras(txtNombre, "Solo se permiten letras");
             agregarValidacionSoloLetras(txtApellidoP, "Solo se permiten letras");
-                        agregarValidacionSoloLetras(txtApellidoM, "Solo se permiten letras");
+            agregarValidacionSoloLetras(txtApellidoM, "Solo se permiten letras");
 
     }
 
@@ -67,7 +67,7 @@ Connection cn=con.conectar();
         txtApellidoM = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        btnUsuario = new javax.swing.JButton();
+        btnguardarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,14 +98,14 @@ Connection cn=con.conectar();
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
         jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 246, -1));
 
-        btnUsuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnUsuario.setText("GUARDAR USUARIO");
-        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
+        btnguardarUsuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnguardarUsuario.setText("GUARDAR USUARIO");
+        btnguardarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuarioActionPerformed(evt);
+                btnguardarUsuarioActionPerformed(evt);
             }
         });
-        jPanel3.add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 177, -1));
+        jPanel3.add(btnguardarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 177, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,7 +145,7 @@ Connection cn=con.conectar();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+    private void btnguardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarUsuarioActionPerformed
         if (txtNombre.getText().isEmpty()||txtApellidoP.getText().isEmpty()||txtApellidoM.getText().isEmpty()||txtEmail.getText().isEmpty()||txtPassword.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "DEBES COMPLETAR TODOS LOS CAMPOS","",JOptionPane.ERROR_MESSAGE);
         }else{
@@ -156,15 +156,15 @@ Connection cn=con.conectar();
                 String emal=txtEmail.getText();
                 String pass=txtPassword.getText();
                 String rol="empleado";
-                String query="SELECT * FROM usuarios where email=?";
+                String query="SELECT * FROM usuarios where usuario=?";
                 PreparedStatement psi = cn.prepareStatement(query);
                 psi.setString(1, emal);
                 ResultSet rs = psi.executeQuery();
 
                 if (rs.next()==true){
-                    JOptionPane.showMessageDialog(null, "YA EXISTE UN USUARIO REGISTRADO CON ESTE EMAIL","",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "YA EXISTE UN USUARIO REGISTRADO CON ESTE NOMBRE DE USUARIO","",JOptionPane.ERROR_MESSAGE);
                 }else{
-                    String consulta="INSERT INTO usuarios( nombre,apellido_paterno,apellido_materno,email,pass,rol)values('"+nombre+"','"+apeP+"','"+apeM+"','"+emal+"','"+pass+"','"+rol+"')";
+                    String consulta="INSERT INTO usuarios( nombre,apellido_paterno,apellido_materno,usuario,pass,rol)values('"+nombre+"','"+apeP+"','"+apeM+"','"+emal+"','"+pass+"','"+rol+"')";
                     PreparedStatement ps = cn.prepareStatement(consulta);
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "DATOS INSERTADOS CORRECTAMENTE","",JOptionPane.INFORMATION_MESSAGE);
@@ -178,11 +178,11 @@ Connection cn=con.conectar();
                 JOptionPane.showMessageDialog(null, "NO SE PUDO GUARDAR EL USUARIO"+e,"",JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnUsuarioActionPerformed
+    }//GEN-LAST:event_btnguardarUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnUsuario;
+    private javax.swing.JButton btnguardarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

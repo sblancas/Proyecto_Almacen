@@ -75,7 +75,7 @@ Connection cn=con.conectar();
         btnAgregar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnExportarExcel.setEnabled(false);
-        jButton2.setEnabled(false);
+        btnActualizar.setEnabled(false);
         // El botón Buscar debe estar habilitado
         btnBuscar.setEnabled(true);
     }
@@ -116,7 +116,7 @@ Connection cn=con.conectar();
         jLabel7 = new javax.swing.JLabel();
         txtClave = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -301,14 +301,14 @@ Connection cn=con.conectar();
         });
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 130, -1));
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
-        jButton2.setText("ACTUALIZAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 130, 30));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 130, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -402,7 +402,7 @@ Connection cn=con.conectar();
     
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
       try {
         if ( txtNombrep.getText().isEmpty() || 
             txtPreciop.getText().isEmpty() || txtCantidadp.getText().isEmpty() || 
@@ -729,12 +729,12 @@ public double formatearPrecio(String txtPreciop){
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnExportarExcel;
     private javax.swing.JComboBox<String> cboItem;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

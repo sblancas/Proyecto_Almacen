@@ -54,8 +54,8 @@ public class FormularioInicio extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jIniciarSesion = new javax.swing.JMenuItem();
+        jregistrarUsuario = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -73,23 +73,23 @@ public class FormularioInicio extends javax.swing.JFrame {
         jMenu3.setText("Inicio");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem1.setText("Iniciar Sesion");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jIniciarSesion.setText("Iniciar Sesion");
+        jIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jIniciarSesionActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(jIniciarSesion);
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem2.setText("Registrar Usuario");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jregistrarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jregistrarUsuario.setText("Registrar Usuario");
+        jregistrarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jregistrarUsuarioActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(jregistrarUsuario);
 
         jMenuBar1.add(jMenu3);
 
@@ -109,20 +109,20 @@ public class FormularioInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIniciarSesionActionPerformed
     Frmlogin login = new Frmlogin(this);
     this.setVisible(false);
     login.setVisible(true);
     login.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jIniciarSesionActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jregistrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jregistrarUsuarioActionPerformed
     FormularioRegistro registro = new  FormularioRegistro(this,true);
     this.setVisible(false);
     registro.setVisible(true);
     registro.setLocationRelativeTo(null);
     
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jregistrarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +133,7 @@ public class FormularioInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jIniciarSesion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -140,9 +141,8 @@ public class FormularioInicio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JMenuItem jregistrarUsuario;
     // End of variables declaration//GEN-END:variables
 }

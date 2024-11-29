@@ -33,7 +33,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class VentaProductos extends javax.swing.JFrame {
 ConexionMysql con =new ConexionMysql();
-//Creando un objeto en linea 16 de clase connection , para poder hacer uso de sus parametros 
+//Creando un objeto en linea 36 de clase connection , para poder hacer uso de sus parametros 
 Connection cn=con.conectar();
 String usuarioVenta="";
 // Declarar una variable para mantener el total acumulado
@@ -137,9 +137,9 @@ private int cantidadAcumulado = 0;
         txtCantidadp = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
+        btnagregarProducto = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
+        btneliminarRegistroProducto = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -228,26 +228,26 @@ private int cantidadAcumulado = 0;
         txtDescripcion.setEnabled(false);
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 180, -1));
 
-        btnAgregar.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnagregarProducto.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        btnagregarProducto.setText("Agregar");
+        btnagregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnagregarProductoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, 30));
+        jPanel1.add(btnagregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, 30));
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
         jPanel1.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 90, -1));
 
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btneliminarRegistroProducto.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
+        btneliminarRegistroProducto.setText("Eliminar");
+        btneliminarRegistroProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btneliminarRegistroProductoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, -1, -1));
+        jPanel1.add(btneliminarRegistroProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -356,7 +356,7 @@ public void cargarDatosProductoSeleccionado() {
         JOptionPane.showMessageDialog(null, "Ocurrió un error al cargar los datos del producto", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnagregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarProductoActionPerformed
 // Guardar el producto seleccionado antes de cualquier cambio
     String productoSeleccionado = comboProductos.getSelectedItem().toString();
 
@@ -485,9 +485,9 @@ private void limpiarCampos() {
     txtDescripcion.setText("");
     jSpinner1.setValue(1);  // Resetear el spinner
     comboProductos.setSelectedIndex(0);  // Resetear el combo
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnagregarProductoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btneliminarRegistroProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarRegistroProductoActionPerformed
   // Obtener la fila seleccionada en la tabla
     int filaSeleccionada = jTable1.getSelectedRow();
 
@@ -525,7 +525,7 @@ private void limpiarCampos() {
     // Si después de eliminar la fila, la tabla ya no tiene productos, mostramos un mensaje adecuado
     if (jTable1.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "No hay productos en la tabla.", "Información", JOptionPane.INFORMATION_MESSAGE);
-    }    }//GEN-LAST:event_jButton1ActionPerformed
+    }    }//GEN-LAST:event_btneliminarRegistroProductoActionPerformed
 
     private void recargarProductoSeleccionado(String clave) {
     // Cargar los datos del producto con la nueva cantidad desde la base de datos
@@ -733,7 +733,7 @@ private void limpiarCampos() {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-               // JOptionPane.showMessageDialog(null, "OCURRIO UN ERROR AL INSERTAR EN BASE DE DATOS","",JOptionPane.ERROR_MESSAGE);
+               
         }
 
     }
@@ -758,12 +758,12 @@ String valorLimpio = txtPreciop.replaceAll("[$]|MXN|\\s+", "");
 }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegistrarVenta;
+    private javax.swing.JButton btnagregarProducto;
+    private javax.swing.JButton btneliminarRegistroProducto;
     private javax.swing.JTextField cantidadProductos;
     private javax.swing.JComboBox<String> comboProductos;
     private javax.swing.JLabel hora;
-    private javax.swing.JButton jButton1;
     private javax.swing.JTextField jEfectivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -32,7 +32,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.setSize(720, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Asegúrate de que se cierre todo al salir
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
-       // Mostrar el nombre del usuario en un JLabel u otro componente adignamos rol a variable
+       // Mostrar el nombre del usuario en un JLabel u otro componente asignamos rol a variable
        this.usuario=usuario;
        this.rol=rol;
        setTitle( "Bienvenido " + this.rol+": "+this.usuario+ "!");
@@ -60,9 +60,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jinventario = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jregistrarVenta = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -82,28 +82,28 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         jMenu4.setText("Inventario");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem1.setText("Productos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jinventario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jinventario.setText("Productos");
+        jinventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jinventarioActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem1);
+        jMenu4.add(jinventario);
 
         jMenuBar1.add(jMenu4);
 
         jMenu7.setText("Ventas");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem4.setText("Registrar venta");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jregistrarVenta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jregistrarVenta.setText("Registrar venta");
+        jregistrarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jregistrarVentaActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem4);
+        jMenu7.add(jregistrarVenta);
 
         jMenuBar1.add(jMenu7);
 
@@ -123,20 +123,20 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jregistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jregistrarVentaActionPerformed
     VentaProductos venta = new VentaProductos(this,rol,usuario);
     this.setVisible(false);
     venta.setVisible(true);
     venta.setLocationRelativeTo(null);        
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jregistrarVentaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jinventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinventarioActionPerformed
     
     FormularioInventario inventario = new FormularioInventario(this, rol,usuario);
     this.setVisible(false);
     inventario.setVisible(true);
     inventario.setLocationRelativeTo(null);        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jinventarioActionPerformed
 
    
 
@@ -150,9 +150,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JMenuItem jinventario;
+    private javax.swing.JMenuItem jregistrarVenta;
     // End of variables declaration//GEN-END:variables
 }
