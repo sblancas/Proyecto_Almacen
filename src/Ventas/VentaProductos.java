@@ -48,7 +48,7 @@ private int cantidadAcumulado = 0;
     this.setTitle( "Bienvenido " + rol+": "+usuario+ "!");
     usuarioVenta=usuario;
     this.setResizable(false); // Para no permitir reajuste
-    setIconImage(new ImageIcon(getClass().getResource("/imagenes/baner.png")).getImage());
+    setIconImage(new ImageIcon(getClass().getResource("/imagenes/login.png")).getImage());
     cargarProductos(); // Carga productos al iniciar form en la tabla
 
     comboProductos.addItemListener(e -> {

@@ -159,18 +159,16 @@ jContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-   String usuario = txtUsuario.getText();
-    String contrasena = jContraseña.getText();
+   String usuario = txtUsuario.getText().trim();  // No cambiamos la cadena, la dejamos tal cual
+    String contrasena = jContraseña.getText().trim(); 
 
     if (!usuario.equals("") && !contrasena.equals("")) {
         // Mostrar la barra de progreso en su ubicación original
         progressBar.setVisible(true); 
-        progressBar.setValue(0); // Empezamos desde 0
+        progressBar.setValue(0); // Comienza desde 0
         progressBar.setStringPainted(true); // Mostrar el porcentaje
-        // Cambiar el color de la barra de progreso a verde
         progressBar.setForeground(Color.black); 
         progressBar.setBackground(Color.gray);
-        
 
         // Crear un nuevo hilo para simular el proceso de inicio de sesión
         new Thread(new Runnable() {
@@ -179,25 +177,22 @@ jContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
                 try {
                     // Simulamos el progreso mientras se realiza el inicio de sesión
                     for (int i = 0; i <= 100; i += 10) {
-                        Thread.sleep(90); // Simula el tiempo que puede tomar la consulta a la base de datos
+                        Thread.sleep(90); // Simula el tiempo que puede tomar la consulta
                         progressBar.setValue(i); // Actualiza el valor de la barra de progreso
                     }
 
                     // Realizar la validación de usuario y contraseña
                     String consulta = "SELECT rol FROM usuarios WHERE usuario=? AND pass=?";
                     try (PreparedStatement ps = conexionn.prepareStatement(consulta)) {
-                        ps.setString(1, usuario);
-                        ps.setString(2, contrasena);
+                        ps.setString(1, usuario);  // La cadena se mantiene tal cual
+                        ps.setString(2, contrasena); // Igual con la contraseña
                         ResultSet rs = ps.executeQuery();
 
                         if (rs.next()) {
                             String rol = rs.getString("rol");
-
-                         
-                       FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
-                       formularioPrincipal.setVisible(true);
-                       dispose();  // Cierra el formulario de login
-
+                            FormularioPrincipal formularioPrincipal = new FormularioPrincipal(rol, usuario);
+                            formularioPrincipal.setVisible(true);
+                            dispose();  // Cierra el formulario de login
                         } else {
                             // Si la validación falla, mostrar un mensaje de error
                             JOptionPane.showMessageDialog(null, 
@@ -208,7 +203,6 @@ jContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

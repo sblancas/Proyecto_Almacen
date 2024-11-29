@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-X-COMMENT: Main-Class will be added automatically by build
-
+Main-Class: FormularioInicio
+Class-Path: lib/filters-2.0.235.jar lib/jxl.jar lib/mysql-connector-j-9.1.0.jar lib/swing-worker-1.1.jar lib/swingx-1.6.1.jar
