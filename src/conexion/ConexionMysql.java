@@ -17,6 +17,7 @@ public class ConexionMysql {
    public Connection conectar(){
        try {
            Class.forName("com.mysql.cj.jdbc.Driver");
+           //aqui se realiza la conexion hacia la base de datos pasando el nombre , usuario  y password
            conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost/almacen","root","root");
            System.out.println("Conexion exitosa");
        }catch(Exception e){

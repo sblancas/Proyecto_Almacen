@@ -9,7 +9,6 @@ import conexion.ConexionMysql;
 import config.Utilidades;
 import formularios.FormularioPrincipal;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -19,10 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
 /**
  *
  * @author sergi
@@ -178,7 +173,8 @@ jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
         progressBar.setValue(0); // Empezamos desde 0
         progressBar.setStringPainted(true); // Mostrar el porcentaje
         // Cambiar el color de la barra de progreso a verde
-        progressBar.setForeground(Color.GRAY); 
+        progressBar.setForeground(Color.black); 
+        progressBar.setBackground(Color.gray);
         
 
         // Crear un nuevo hilo para simular el proceso de inicio de sesión

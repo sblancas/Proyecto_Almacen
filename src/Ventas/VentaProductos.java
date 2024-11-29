@@ -83,6 +83,8 @@ private int cantidadAcumulado = 0;
     jEfectivo.setText(""); // Limpia el campo de efectivo ingresado
     jTextField6.setText(""); // Limpia el campo de cambio
     cantidadProductos.setText("");
+    cantidadAcumulado = 0;
+
 }
    public void cargarProductos() {
    // Recargar los productos disponibles en el ComboBox
@@ -375,7 +377,16 @@ public void cargarDatosProductoSeleccionado() {
     int cantidadDisponible = Integer.parseInt(txtCantidadp.getText().trim());
     int cantidadIngresada = Integer.parseInt(cantidadStr);
 
+    
     if (cantidadIngresada > cantidadDisponible) {
+        
+        if(cantidadDisponible == 0){
+            JOptionPane.showMessageDialog(this, 
+            "No contamos con piezas disponibles en el inventario.", 
+            "Error", JOptionPane.ERROR_MESSAGE);
+            
+            return;
+        }
         JOptionPane.showMessageDialog(this, 
             "No contamos con las piezas solicitadas. La cantidad máxima es " + cantidadDisponible + ".", 
             "Error", JOptionPane.ERROR_MESSAGE);
