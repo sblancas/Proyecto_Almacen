@@ -29,7 +29,7 @@ Connection conexionn=conexion.conectar();
     /**
      * Creates new form Frmlogin
      */
-    Utilidades fondo = new Utilidades("../imagenes/pass.png");
+    Utilidades fondo = new Utilidades("/imagenes/pass.png");
 
     public Frmlogin(JFrame parent) {
             this.setContentPane(fondo);
@@ -182,7 +182,7 @@ jContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
                     }
 
                     // Realizar la validación de usuario y contraseña
-                    String consulta = "SELECT rol FROM usuarios WHERE usuario=? AND pass=?";
+                    String consulta = "SELECT rol FROM usuarios WHERE BINARY usuario=? AND BINARY pass=?";
                     try (PreparedStatement ps = conexionn.prepareStatement(consulta)) {
                         ps.setString(1, usuario);  // La cadena se mantiene tal cual
                         ps.setString(2, contrasena); // Igual con la contraseña

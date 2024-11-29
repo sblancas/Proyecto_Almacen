@@ -21,7 +21,7 @@ public class FormularioInicio extends javax.swing.JFrame {
      * Creates new form FormularioPanelControl
      */
 // Crear panel de fondo con imagen específica para el Formulario 1
-    Utilidades fondo = new Utilidades("../imagenes/panel.jpg");
+    Utilidades fondo = new Utilidades("/imagenes/panel.jpg");
 
     public FormularioInicio() {
         this.setContentPane(fondo);

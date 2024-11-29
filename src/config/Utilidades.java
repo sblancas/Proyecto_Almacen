@@ -20,9 +20,18 @@ import javax.swing.JPanel;
 
     // Constructor que recibe la ruta de la imagen
     public Utilidades(String imagePath) {
-        // Carga la imagen de fondo
-        this.imagen = new ImageIcon(getClass().getResource(imagePath)).getImage();
+        // Intenta cargar la imagen de fondo desde el classpath
+        try {
+            this.imagen = new ImageIcon(getClass().getResource(imagePath)).getImage();
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException("No se pudo cargar la imagen desde la ruta: " + imagePath);
+        }
     }
+
+    public Image getImagen() {
+        return imagen;
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
